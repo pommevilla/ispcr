@@ -1,0 +1,18 @@
+{
+  "template": "https://github.com/woltapp/wolt-python-package-cookiecutter",
+  "commit": "939ec0f2b97c172178eb5c77fb61a7df937696aa",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "author_name": "Paul Villanueva",
+      "author_email": "pvillanueva13@gmail.com",
+      "github_username": "pommevilla",
+      "project_name": "ispcr",
+      "project_slug": "ispcr",
+      "package_name": "ispcr",
+      "project_short_description": "Simple in silico PCR",
+      "_template": "https://github.com/woltapp/wolt-python-package-cookiecutter"
+    }
+  },
+  "directory": null
+}
