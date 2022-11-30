@@ -22,9 +22,6 @@ class TestReadFasta:
     def test_correct_number_of_entries(self) -> None:
         expected_num_lines = 20
         input_file = "tests/test_data/sequences/met_r.fa.fasta"
-        import os
-
-        print(f"currently in {os.getcwd()}")
 
         actual_num_lines = 0
         with open(input_file) as fin:
