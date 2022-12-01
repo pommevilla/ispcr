@@ -1,7 +1,7 @@
 """
 Generic fasta sequence class.
 """
-from typing import Iterator
+from typing import Iterator, Union
 
 
 class FastaSequence:
@@ -23,3 +23,6 @@ class FastaSequence:
 
     def __contains__(self, x: str) -> bool:
         return x in self.sequence
+
+    def __getitem__(self, i: Union[int, slice]) -> str:
+        return self.sequence[i]
