@@ -2,7 +2,9 @@
 This module contains various utilities used during in silico PCR.
 """
 
-from typing import Iterator, List, TextIO, Tuple
+from typing import Iterator, List, TextIO
+
+from ispcr.FastaSequence import FastaSequence
 
 
 def reverse_complement(dna_string: str) -> str:
@@ -37,7 +39,7 @@ def reverse_complement(dna_string: str) -> str:
     return rev_seq
 
 
-def read_fasta(fasta_file: TextIO) -> Iterator[Tuple[str, str]]:
+def read_fasta(fasta_file: TextIO) -> Iterator[FastaSequence]:
     """An iterator for fasta files.
 
     Inputs
@@ -63,9 +65,22 @@ def read_fasta(fasta_file: TextIO) -> Iterator[Tuple[str, str]]:
         line = line.rstrip()
         if line.startswith(">"):
             if name:
-                yield (name, "".join(seq))
-            name, seq = line, []
+                header = name
+                sequence = "".join(seq)
+                yield FastaSequence(header, sequence)
+            name, seq = line[1:], []
         else:
             seq.append(line)
     if name:
-        yield (name, "".join(seq))
+        header = name
+        sequence = "".join(seq)
+        yield FastaSequence(header, sequence)
+
+
+def read_primers_from_file(primer_file: str) -> List[FastaSequence]:
+    primers = []
+    with open(primer_file) as fin:
+        for fasta_sequence in read_fasta(fin):
+            primers.append(fasta_sequence)
+
+    return primers
