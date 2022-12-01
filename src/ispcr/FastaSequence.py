@@ -15,8 +15,11 @@ class FastaSequence:
     def __iter__(self) -> Iterator[str]:
         yield from self.sequence
 
-    def __repr__(self) -> str:
+    def __str__(self) -> str:
         return f">{self.header}\n{self.sequence}"
+
+    def __repr__(self) -> str:
+        return f"FastaSeq(header={self.header[:5]}..., seq={self.sequence[:5]}...)"
 
     def __contains__(self, x: str) -> bool:
         return x in self.sequence
