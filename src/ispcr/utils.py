@@ -77,7 +77,7 @@ def read_fasta(fasta_file: TextIO) -> Iterator[FastaSequence]:
         yield FastaSequence(header, sequence)
 
 
-def read_primers_from_file(primer_file: str) -> List[FastaSequence]:
+def read_sequences_from_file(primer_file: str) -> List[FastaSequence]:
     primers = []
     with open(primer_file) as fin:
         for fasta_sequence in read_fasta(fin):
