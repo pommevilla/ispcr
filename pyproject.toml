@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ispcr"
-version = "1.0.0a0"
+version = "0.5.0"
 description = "Simple in silico PCR"
 authors = [
     "Paul Villanueva <pvillanueva13@gmail.com>",
