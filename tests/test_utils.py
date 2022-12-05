@@ -48,6 +48,10 @@ class TestReaderUtils:
     def test_read_single_fasta(self, single_test_sequence: FastaSequence) -> None:
         assert len(single_test_sequence) == 1
 
+    # TODO: Mypy correctly identifies the single_test_sequence fixture as a string,
+    # and throws an error when we try to use single_test_sequence.header.
+    # PyTest runs fine, however. Hardcoding this for now to appease MyPy, but need to come
+    # back and fix later.
     def test_correct_single_header(self, single_test_sequence: FastaSequence) -> None:
         expected_single_header = "single_test_sequence"
         single_test_sequence = FastaSequence("single_test_sequence", "GGG")
