@@ -1,4 +1,5 @@
 import re
+from typing import Union
 
 from ispcr.FastaSequence import FastaSequence
 from ispcr.utils import read_sequences_from_file, reverse_complement
@@ -8,6 +9,7 @@ def get_pcr_product(
     sequence: FastaSequence,
     forward_primer: FastaSequence,
     reverse_primer: FastaSequence,
+    min_product_length: Union[int, None] = None,
 ) -> str:
     forward_matches = [
         match.start()
@@ -31,13 +33,17 @@ def get_pcr_product(
                 forward_match + reverse_match + len(reverse_primer)
             )  # This is the end in the original sequence
             product_length = len(product)
+            if min_product_length is not None and product_length < min_product_length:
+                continue
 
             product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{product_length}\t{product}"
             products.append(product_line)
     return "\n".join(products)
 
 
-def find_pcr_product(primer_file: str, sequence_file: str) -> str:
+def find_pcr_product(
+    primer_file: str, sequence_file: str, min_product_length: Union[int, None] = None
+) -> str:
     primers = read_sequences_from_file(primer_file)
     forward_primer, reverse_primer = primers
 
@@ -49,6 +55,7 @@ def find_pcr_product(primer_file: str, sequence_file: str) -> str:
             sequence=sequence,
             forward_primer=forward_primer,
             reverse_primer=reverse_primer,
+            min_product_length=min_product_length,
         )
         products.append(new_products)
     return "\n".join(products)
