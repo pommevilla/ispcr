@@ -26,7 +26,7 @@ def reverse_complement(dna_string: str) -> str:
 
     Example
     -------
-    reverse_complement('GCTGA')
+    >>> reverse_complement('GCTGA')
     'TCAGC'
     """
 
