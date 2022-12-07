@@ -3,7 +3,7 @@ from typing import Iterator, List
 import pytest
 
 from ispcr.FastaSequence import FastaSequence
-from ispcr.utils import read_fasta, reverse_complement
+from ispcr.utils import desired_product_size, read_fasta, reverse_complement
 
 
 class TestReverseComplement:
@@ -58,3 +58,78 @@ class TestReaderUtils:
         actual_single_header = single_test_sequence.header
 
         assert expected_single_header == actual_single_header
+
+
+class TestDesiredProductSize:
+    def test_min_none_pass(self) -> None:
+        min_product_length, max_product_length = None, 200
+        potential_product_size = 150
+        expected = True
+        actual = desired_product_size(
+            potential_product_size, min_product_length, max_product_length
+        )
+
+        assert actual == expected
+
+    def test_min_none_fail(self) -> None:
+        min_product_length, max_product_length = None, 200
+        potential_product_size = 300
+        expected = False
+        actual = desired_product_size(
+            potential_product_size, min_product_length, max_product_length
+        )
+
+        assert actual == expected
+
+    def test_max_none_pass(self) -> None:
+        min_product_length, max_product_length = 100, None
+        potential_product_size = 150
+        expected = True
+        actual = desired_product_size(
+            potential_product_size, min_product_length, max_product_length
+        )
+
+        assert actual == expected
+
+    def test_max_none_fail(self) -> None:
+        min_product_length, max_product_length = 100, None
+        potential_product_size = 50
+        expected = False
+        actual = desired_product_size(
+            potential_product_size, min_product_length, max_product_length
+        )
+
+        assert actual == expected
+
+    def test_both_none_pass(self) -> None:
+        min_product_length, max_product_length = None, None
+        potential_product_sizes = [5, 50, 150, 250, 1000]
+        expected = True
+
+        for potential_product_size in potential_product_sizes:
+            actual = desired_product_size(
+                potential_product_size, min_product_length, max_product_length
+            )
+            assert actual == expected
+
+    def test_both_pass(self) -> None:
+        min_product_length, max_product_length = 75, 250
+        potential_product_sizes = [75, 100, 150, 250]
+        expected = True
+
+        for potential_product_size in potential_product_sizes:
+            actual = desired_product_size(
+                potential_product_size, min_product_length, max_product_length
+            )
+            assert actual == expected
+
+    def test_both_fail(self) -> None:
+        min_product_length, max_product_length = 75, 250
+        potential_product_sizes = [1, 50, 74, 251, 1000]
+        expected = False
+
+        for potential_product_size in potential_product_sizes:
+            actual = desired_product_size(
+                potential_product_size, min_product_length, max_product_length
+            )
+            assert actual == expected

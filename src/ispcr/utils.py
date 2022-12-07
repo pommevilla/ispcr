@@ -2,9 +2,50 @@
 This module contains various utilities used during in silico PCR.
 """
 
-from typing import Iterator, List, TextIO
+from typing import Iterator, List, TextIO, Union
 
 from ispcr.FastaSequence import FastaSequence
+
+
+def desired_product_size(
+    potential_product_length: int,
+    min_product_length: Union[int, None] = None,
+    max_product_length: Union[int, None] = None,
+) -> bool:
+    """Determines if a potential product's size is in the user's desired product range.
+
+    Inputs
+    potential_product_length - int
+        The length of the potential product
+    min_product_length: int | None
+        The minimum product size the user will accept. If None, there is no lower limit.
+    max_product_length: int | None
+        The maximum product size the user will accept. If None, there is no lower limit.
+
+    Outputs
+    A boolean for whether the product length is between the min and max product length.
+
+    Example
+    desired_product_size(100, 75, 125)
+    True
+    desired_product_size(200, 75, 125)
+    False
+    """
+
+    if min_product_length is None:
+        if max_product_length is None:
+            return True
+        else:
+            return potential_product_length <= max_product_length
+    else:
+        if max_product_length is None:
+            return min_product_length <= potential_product_length
+        else:
+            if max_product_length < min_product_length:
+                raise ValueError(
+                    "min_product_length cannot be larger than max_product_length"
+                )
+            return min_product_length <= potential_product_length <= max_product_length
 
 
 def reverse_complement(dna_string: str) -> str:
