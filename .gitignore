@@ -78,3 +78,6 @@ venv.bak/
 # IDEs
 .idea/
 .vscode/
+
+# Local development
+scratch
