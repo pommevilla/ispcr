@@ -2,7 +2,11 @@ import re
 from typing import Union
 
 from ispcr.FastaSequence import FastaSequence
-from ispcr.utils import read_sequences_from_file, reverse_complement
+from ispcr.utils import (
+    desired_product_size,
+    read_sequences_from_file,
+    reverse_complement,
+)
 
 
 def get_pcr_product(
@@ -10,6 +14,7 @@ def get_pcr_product(
     forward_primer: FastaSequence,
     reverse_primer: FastaSequence,
     min_product_length: Union[int, None] = None,
+    max_product_length: Union[int, None] = None,
 ) -> str:
     """Returns the products amplified by a pair of primers against a single sequence.
 
@@ -70,7 +75,11 @@ def get_pcr_product(
                 forward_match + reverse_match + len(reverse_primer)
             )  # This is the end in the original sequence
             product_length = len(product)
-            if min_product_length is not None and product_length < min_product_length:
+            # if min_product_length is not None and product_length < min_product_length:
+            #     continue
+            if not desired_product_size(
+                product_length, min_product_length, max_product_length
+            ):
                 continue
 
             product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{product_length}\t{product}"
@@ -79,7 +88,10 @@ def get_pcr_product(
 
 
 def find_pcr_product(
-    primer_file: str, sequence_file: str, min_product_length: Union[int, None] = None
+    primer_file: str,
+    sequence_file: str,
+    min_product_length: Union[int, None] = None,
+    max_product_length: Union[int, None] = None,
 ) -> str:
     """Returns all the products amplified by a set of primers in all sequences in a fasta file.
 
@@ -126,6 +138,7 @@ def find_pcr_product(
             forward_primer=forward_primer,
             reverse_primer=reverse_primer,
             min_product_length=min_product_length,
+            max_product_length=max_product_length,
         )
         products.append(new_products)
     return "\n".join(products)

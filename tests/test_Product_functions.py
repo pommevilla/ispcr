@@ -18,6 +18,12 @@ class TestGetPCRPRoduct:
         sequence = FastaSequence("test_sequence", "GGAGCATGCTATGTCGTAGCTGATGCAATTA")
         yield sequence
 
+    @pytest.fixture(scope="class")
+    def medium_sequence_1(self) -> Iterator[FastaSequence]:
+        seq_string = "AAAACCCACCCAAAAAATATTCTTTTGCATCCACTGTCAACTTTTCACAGAAACCCATTAAGTCAGGATCCTTAAGAGTTTCCGAGTGTTCATCTGCTGATATTCCAACAACAAACTCTACCGAGTGTCTGAATTTGCTGCTTGAAAAGAGAGGAGCTTCATCGAGTCAAAACTGTTGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTATTGCCGACGCTGGTGACCATGGGATTTTATCTTTCAAAGTTTCTGACCTGAAAGAAGATATACCCTCGCAAATATCGACGGCTAAGGAAGAGTCCTTCAGTGGTAATGAAGAAGAAGAAGAAGAAGAAGGTGATGACGATGATAAGATAACCCTTCAGGATTTTGTTTGTAATGAAAAGAACCAAAAAGAAATGGGTGAACAAAGAAATGACGTAAGCTCGTCTTCTTGGGTACAAACTGAGCTGTTGTTTCTTCTCCTAAAGGGAAGTATCGGGAGTAATGATACTCAAACAACACTGAGAAAACCAACCCTGTTTCTGATTCCACATTA"
+        sequence = FastaSequence("medium_test_sequence", seq_string)
+        yield sequence
+
     def test_simple_sequence(
         self, primers: List[FastaSequence], small_sequence_1: FastaSequence
     ) -> None:
@@ -49,6 +55,35 @@ class TestGetPCRPRoduct:
 
         assert expected_results == actual_results
 
+    def test_maximum_product_length(
+        self, primers: List[FastaSequence], medium_sequence_1: FastaSequence
+    ) -> None:
+        expected_results = "test_forward\ttest_reverse\t177\t255\t78\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA\ntest_forward\ttest_reverse\t528\t586\t58\tGGAGTAATGATACTCAAACAACACTGAGAAAACCAACCCTGTTTCTGATTCCACATTA"
+        forward_primer, reverse_primer = primers
+        actual_results = get_pcr_product(
+            sequence=medium_sequence_1,
+            forward_primer=forward_primer,
+            reverse_primer=reverse_primer,
+            max_product_length=100,
+        )
+
+        assert expected_results == actual_results
+
+    def test_product_length_range(
+        self, primers: List[FastaSequence], medium_sequence_1: FastaSequence
+    ) -> None:
+        expected_results = "test_forward\ttest_reverse\t177\t255\t78\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA"
+        forward_primer, reverse_primer = primers
+        actual_results = get_pcr_product(
+            sequence=medium_sequence_1,
+            forward_primer=forward_primer,
+            reverse_primer=reverse_primer,
+            min_product_length=75,
+            max_product_length=100,
+        )
+
+        assert expected_results == actual_results
+
 
 class TestFindProduct:
     def test_simple_sequence(self) -> None:
@@ -61,11 +96,31 @@ class TestFindProduct:
         assert expected_result == actual_result
 
     def test_min_product_length(self) -> None:
-        expected_result = "forward_primer.f\treverse_primer.r\t152\t586\t434\tGGAGCTTCATCGAGTCAAAACTGTTGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTATTGCCGACGCTGGTGACCATGGGATTTTATCTTTCAAAGTTTCTGACCTGAAAGAAGATATACCCTCGCAAATATCGACGGCTAAGGAAGAGTCCTTCAGTGGTAATGAAGAAGAAGAAGAAGAAGAAGGTGATGACGATGATAAGATAACCCTTCAGGATTTTGTTTGTAATGAAAAGAACCAAAAAGAAATGGGTGAACAAAGAAATGACGTAAGCTCGTCTTCTTGGGTACAAACTGAGCTGTTGTTTCTTCTCCTAAAGGGAAGTATCGGGAGTAATGATACTCAAACAACACTGAGAAAACCAACCCTGTTTCTGATTCCACATTA\nforward_primer.f\treverse_primer.r\t177\t586\t409\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTATTGCCGACGCTGGTGACCATGGGATTTTATCTTTCAAAGTTTCTGACCTGAAAGAAGATATACCCTCGCAAATATCGACGGCTAAGGAAGAGTCCTTCAGTGGTAATGAAGAAGAAGAAGAAGAAGAAGGTGATGACGATGATAAGATAACCCTTCAGGATTTTGTTTGTAATGAAAAGAACCAAAAAGAAATGGGTGAACAAAGAAATGACGTAAGCTCGTCTTCTTGGGTACAAACTGAGCTGTTGTTTCTTCTCCTAAAGGGAAGTATCGGGAGTAATGATACTCAAACAACACTGAGAAAACCAACCCTGTTTCTGATTCCACATTA"
+        expected_result = ""
+        actual_result = find_pcr_product(
+            primer_file="tests/test_data/primers/test_primers_1.fa",
+            sequence_file="tests/test_data/sequences/small_sequence.fa",
+            min_product_length=100,
+        )
+        assert expected_result == actual_result
+
+    def test_maximum_product_length(self) -> None:
+        expected_results = "forward_primer.f\treverse_primer.r\t177\t255\t78\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA\nforward_primer.f\treverse_primer.r\t528\t586\t58\tGGAGTAATGATACTCAAACAACACTGAGAAAACCAACCCTGTTTCTGATTCCACATTA"
         actual_result = find_pcr_product(
             primer_file="tests/test_data/primers/test_primers_1.fa",
             sequence_file="tests/test_data/sequences/single_test.fa",
-            min_product_length=150,
+            max_product_length=100,
         )
 
-        assert expected_result == actual_result
+        assert expected_results == actual_result
+
+    def test_product_length_range(self) -> None:
+        expected_results = "forward_primer.f\treverse_primer.r\t177\t255\t78\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA"
+        actual_results = find_pcr_product(
+            primer_file="tests/test_data/primers/test_primers_1.fa",
+            sequence_file="tests/test_data/sequences/single_test.fa",
+            min_product_length=75,
+            max_product_length=100,
+        )
+
+        assert expected_results == actual_results
