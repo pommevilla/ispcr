@@ -133,3 +133,13 @@ class TestDesiredProductSize:
                 potential_product_size, min_product_length, max_product_length
             )
             assert actual == expected
+
+    def test_improper_limits(self) -> None:
+        min_product_length, max_product_length = 200, 100
+
+        with pytest.raises(ValueError):
+            desired_product_size(
+                20,
+                min_product_length=min_product_length,
+                max_product_length=max_product_length,
+            )
