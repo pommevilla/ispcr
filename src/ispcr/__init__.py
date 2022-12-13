@@ -98,6 +98,7 @@ def find_pcr_product(
     sequence_file: str,
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
+    header: Union[bool, str] = False,
 ) -> str:
     """Returns all the products amplified by a set of primers in all sequences in a fasta file.
 
@@ -137,6 +138,10 @@ def find_pcr_product(
 
     sequences = read_sequences_from_file(sequence_file)
     products = []
+
+    if header:
+        header = "forward_primer\treverse_primer\tstart\tend\tlength\tsequence"
+        products.append(header)
 
     for sequence in sequences:
         new_products = get_pcr_product(
