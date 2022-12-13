@@ -2,7 +2,7 @@ from typing import Iterator, List
 
 import pytest
 
-from ispcr import find_pcr_product, get_pcr_product
+from ispcr import calculate_pcr_product, get_pcr_products
 from ispcr.FastaSequence import FastaSequence
 
 
@@ -18,13 +18,13 @@ class TestHeaders:
         sequence = FastaSequence("test_sequence", "GGAGCATGCTATGTCGTAGCTGATGCAATTA")
         yield sequence
 
-    def test_no_header_get_pcr_product(
+    def test_no_header_calculate_pcr_product(
         self, primers: List[FastaSequence], small_sequence_1: FastaSequence
     ) -> None:
         expected_results = ""
 
         forward_primer, reverse_primer = primers
-        pcr_results = get_pcr_product(
+        pcr_results = calculate_pcr_product(
             sequence=small_sequence_1,
             forward_primer=forward_primer,
             reverse_primer=reverse_primer,
@@ -36,15 +36,13 @@ class TestHeaders:
 
         assert expected_results == actual_results
 
-    def test_basic_header_get_pcr_product(
+    def test_basic_header_calculate_pcr_product(
         self, primers: List[FastaSequence], small_sequence_1: FastaSequence
     ) -> None:
-        expected_results = (
-            "forward_primer\treverse_primer\tstart\tend\tlength\tsequence"
-        )
+        expected_results = "forward_primer\treverse_primer\tstart\tproduct_sequence\tend\tlength\tsequence"
 
         forward_primer, reverse_primer = primers
-        pcr_results = get_pcr_product(
+        pcr_results = calculate_pcr_product(
             sequence=small_sequence_1,
             forward_primer=forward_primer,
             reverse_primer=reverse_primer,
@@ -56,31 +54,25 @@ class TestHeaders:
 
         assert expected_results == actual_results
 
-    def test_no_header_find_pcr_product(
-        self, primers: List[FastaSequence], small_sequence_1: FastaSequence
-    ) -> None:
+    def test_no_header_get_pcr_products(self) -> None:
         expected_results = ""
 
-        pcr_results = find_pcr_product(
+        pcr_results = get_pcr_products(
             primer_file="tests/test_data/primers/test_primers_1.fa",
             sequence_file="tests/test_data/sequences/small_sequence.fa",
             min_product_length=100,
             header=False,
         ).splitlines()
         actual_results = "".join(
-            [line for line in pcr_results if "forward_primer" in line]
+            [line for line in pcr_results if "product_sequence" in line]
         )
 
         assert expected_results == actual_results
 
-    def test_basic_header_find_pcr_product(
-        self, primers: List[FastaSequence], small_sequence_1: FastaSequence
-    ) -> None:
-        expected_results = (
-            "forward_primer\treverse_primer\tstart\tend\tlength\tsequence"
-        )
+    def test_basic_header_get_pcr_products(self) -> None:
+        expected_results = "forward_primer\treverse_primer\tstart\tproduct_sequence\tend\tlength\tsequence"
 
-        pcr_results = find_pcr_product(
+        pcr_results = get_pcr_products(
             primer_file="tests/test_data/primers/test_primers_1.fa",
             sequence_file="tests/test_data/sequences/small_sequence.fa",
             min_product_length=100,
