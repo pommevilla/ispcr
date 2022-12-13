@@ -15,6 +15,7 @@ def get_pcr_product(
     reverse_primer: FastaSequence,
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
+    header: Union[bool, str] = False,
 ) -> str:
     """Returns the products amplified by a pair of primers against a single sequence.
 
@@ -57,7 +58,12 @@ def get_pcr_product(
         match.start()
         for match in re.finditer(forward_primer.sequence, sequence.sequence)
     ]
+
     products = []
+
+    if header:
+        header = "forward_primer\treverse_primer\tstart\tend\tlength\tsequence"
+        products.append(header)
 
     for forward_match in forward_matches:
         tempseq = sequence[forward_match:]
