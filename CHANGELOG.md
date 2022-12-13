@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Added
 - Added a max_product_length option
+- Add basic header support and product sequence name to output
 
 ## [0.6.0] - 2022-12-05
 ### Added
