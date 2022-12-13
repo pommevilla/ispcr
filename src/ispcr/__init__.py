@@ -8,13 +8,18 @@ from ispcr.utils import (
     reverse_complement,
 )
 
+base_header = (
+    "forward_primer\treverse_primer\tstart\tproduct_sequence\tend\tlength\tsequence"
+)
 
-def get_pcr_product(
+
+def calculate_pcr_product(
     sequence: FastaSequence,
     forward_primer: FastaSequence,
     reverse_primer: FastaSequence,
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
+    header: Union[bool, str] = True,
 ) -> str:
     """Returns the products amplified by a pair of primers against a single sequence.
 
@@ -57,7 +62,11 @@ def get_pcr_product(
         match.start()
         for match in re.finditer(forward_primer.sequence, sequence.sequence)
     ]
+
     products = []
+
+    if header is True:
+        products.append(base_header)
 
     for forward_match in forward_matches:
         tempseq = sequence[forward_match:]
@@ -82,16 +91,17 @@ def get_pcr_product(
             ):
                 continue
 
-            product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{product_length}\t{product}"
+            product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{sequence.header}\t{product_length}\t{product}"
             products.append(product_line)
     return "\n".join(products)
 
 
-def find_pcr_product(
+def get_pcr_products(
     primer_file: str,
     sequence_file: str,
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
+    header: Union[bool, str] = True,
 ) -> str:
     """Returns all the products amplified by a set of primers in all sequences in a fasta file.
 
@@ -132,13 +142,21 @@ def find_pcr_product(
     sequences = read_sequences_from_file(sequence_file)
     products = []
 
+    # If anything gets passed for the header, it gets handled here instead of in
+    # calculate_pcr_product.
+    if header:
+        products.append(base_header)
+    elif isinstance(header, str):
+        return "This is a string"
+
     for sequence in sequences:
-        new_products = get_pcr_product(
+        new_products = calculate_pcr_product(
             sequence=sequence,
             forward_primer=forward_primer,
             reverse_primer=reverse_primer,
             min_product_length=min_product_length,
             max_product_length=max_product_length,
+            header=False,
         )
         products.append(new_products)
     return "\n".join(products)
