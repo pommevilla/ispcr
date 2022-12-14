@@ -20,6 +20,7 @@ def calculate_pcr_product(
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
     header: Union[bool, str] = True,
+    output_file: Union[bool, str] = False,
 ) -> str:
     """Returns the products amplified by a pair of primers against a single sequence.
 
@@ -44,6 +45,20 @@ def calculate_pcr_product(
     min_product_length: None | int
         If provided, only return those products whose length are greater than or equal to this number.
         Defaults to None, which returns all products found.
+
+    max_product_length: None | int
+        If provided, only return those products whose length are less than or equal to this number.
+        Defaults to None, which returns all products found.
+
+    header: bool | str
+        Whether or not to print a header on the results. Defaults to True. False will not print out the header.
+        Upcoming feature: providing a string will select certain columns from the output
+
+    output_file: bool | str
+        The file to write the results out to. Defaults to False, which will not print anything out. Providing a string
+        will create that input file at that location. If set to True without providing a string, the output file
+        will be of the form <DD-MM-YYYY_HH:MM:SS>.txt
+
 
 
     Outputs
@@ -93,7 +108,9 @@ def calculate_pcr_product(
 
             product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{sequence.header}\t{product_length}\t{product}"
             products.append(product_line)
-    return "\n".join(products)
+
+    results = "\n".join(products)
+    return results
 
 
 def get_pcr_products(
@@ -102,6 +119,7 @@ def get_pcr_products(
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
     header: Union[bool, str] = True,
+    output_file: Union[bool, str] = False,
 ) -> str:
     """Returns all the products amplified by a set of primers in all sequences in a fasta file.
 
@@ -122,6 +140,19 @@ def get_pcr_products(
     min_product_length: None | int
         If provided, only return those products whose length are greater than or equal to this number.
         Defaults to None, which returns all products found.
+
+    max_product_length: None | int
+        If provided, only return those products whose length are less than or equal to this number.
+        Defaults to None, which returns all products found.
+
+    header: bool | str
+        Whether or not to print a header on the results. Defaults to True. False will not print out the header.
+        Upcoming feature: providing a string will select certain columns from the output
+
+    output_file: bool | str
+        The file to write the results out to. Defaults to False, which will not print anything out. Providing a string
+        will create that input file at that location. If set to True without providing a string, the output file
+        will be of the form <DD-MM-YYYY_HH:MM:SS>.txt
 
 
     Outputs
@@ -159,4 +190,6 @@ def get_pcr_products(
             header=False,
         )
         products.append(new_products)
-    return "\n".join(products)
+
+    results = "\n".join(products)
+    return results
