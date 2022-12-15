@@ -197,4 +197,9 @@ def get_pcr_products(
         products.append(new_products)
 
     results = "\n".join(products)
+
+    if isinstance(output_file, str) is True:
+        with open(output_file, "w") as fout:
+            fout.write(results)
+
     return results
