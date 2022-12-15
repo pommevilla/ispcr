@@ -9,7 +9,7 @@ from ispcr.utils import (
 )
 
 base_header = (
-    "forward_primer\treverse_primer\tstart\tproduct_sequence\tend\tlength\tsequence"
+    "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_sequence\tsequence"
 )
 
 
@@ -106,10 +106,15 @@ def calculate_pcr_product(
             ):
                 continue
 
-            product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{sequence.header}\t{product_length}\t{product}"
+            product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{product_length}\t{sequence.header}\t{product}"
             products.append(product_line)
 
     results = "\n".join(products)
+
+    if isinstance(output_file, str) is True:
+        with open(output_file, "w") as fout:
+            fout.write(results)
+
     return results
 
 
