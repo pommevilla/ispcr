@@ -194,7 +194,8 @@ def get_pcr_products(
             max_product_length=max_product_length,
             header=False,
         )
-        products.append(new_products)
+        if new_products:
+            products.append(new_products)
 
     results = "\n".join(products)
 
