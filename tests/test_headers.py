@@ -39,7 +39,7 @@ class TestHeaders:
     def test_basic_header_calculate_pcr_product(
         self, primers: List[FastaSequence], small_sequence_1: FastaSequence
     ) -> None:
-        expected_results = "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_sequence\tsequence"
+        expected_results = "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_name\tproduct_sequence"
 
         forward_primer, reverse_primer = primers
         pcr_results = calculate_pcr_product(
@@ -64,13 +64,13 @@ class TestHeaders:
             header=False,
         ).splitlines()
         actual_results = "".join(
-            [line for line in pcr_results if "product_sequence" in line]
+            [line for line in pcr_results if "product_name" in line]
         )
 
         assert expected_results == actual_results
 
     def test_basic_header_get_pcr_products(self) -> None:
-        expected_results = "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_sequence\tsequence"
+        expected_results = "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_name\tproduct_sequence"
 
         pcr_results = get_pcr_products(
             primer_file="tests/test_data/primers/test_primers_1.fa",

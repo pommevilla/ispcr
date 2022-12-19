@@ -8,8 +8,8 @@ from ispcr.utils import (
     reverse_complement,
 )
 
-base_header = (
-    "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_sequence\tsequence"
+BASE_HEADER = (
+    "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_name\tproduct_sequence"
 )
 
 
@@ -81,7 +81,7 @@ def calculate_pcr_product(
     products = []
 
     if header is True:
-        products.append(base_header)
+        products.append(BASE_HEADER)
 
     for forward_match in forward_matches:
         tempseq = sequence[forward_match:]
@@ -181,7 +181,7 @@ def get_pcr_products(
     # If anything gets passed for the header, it gets handled here instead of in
     # calculate_pcr_product.
     if header:
-        products.append(base_header)
+        products.append(BASE_HEADER)
     elif isinstance(header, str):
         return "This is a string"
 
