@@ -4,6 +4,7 @@ import pytest
 
 from ispcr import calculate_pcr_product, get_pcr_products
 from ispcr.FastaSequence import FastaSequence
+from ispcr.utils import InvalidColumnSelectionError
 
 
 class TestCalculatePCRPRoduct:
@@ -27,7 +28,7 @@ class TestCalculatePCRPRoduct:
     def test_simple_sequence(
         self, primers: List[FastaSequence], small_sequence_1: FastaSequence
     ) -> None:
-        expected_results = "test_forward\ttest_reverse\t0\t31\ttest_sequence\t31\tGGAGCATGCTATGTCGTAGCTGATGCAATTA"
+        expected_results = "test_forward\ttest_reverse\t0\t31\t31\ttest_sequence\tGGAGCATGCTATGTCGTAGCTGATGCAATTA"
 
         forward_primer, reverse_primer = primers
         actual_results = calculate_pcr_product(
@@ -58,7 +59,7 @@ class TestCalculatePCRPRoduct:
     def test_maximum_product_length(
         self, primers: List[FastaSequence], medium_sequence_1: FastaSequence
     ) -> None:
-        expected_results = "test_forward\ttest_reverse\t177\t255\tmedium_test_sequence\t78\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA\ntest_forward\ttest_reverse\t528\t586\tmedium_test_sequence\t58\tGGAGTAATGATACTCAAACAACACTGAGAAAACCAACCCTGTTTCTGATTCCACATTA"
+        expected_results = "test_forward\ttest_reverse\t177\t255\t78\tmedium_test_sequence\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA\ntest_forward\ttest_reverse\t528\t586\t58\tmedium_test_sequence\tGGAGTAATGATACTCAAACAACACTGAGAAAACCAACCCTGTTTCTGATTCCACATTA"
         forward_primer, reverse_primer = primers
         actual_results = calculate_pcr_product(
             sequence=medium_sequence_1,
@@ -73,7 +74,7 @@ class TestCalculatePCRPRoduct:
     def test_product_length_range(
         self, primers: List[FastaSequence], medium_sequence_1: FastaSequence
     ) -> None:
-        expected_results = "test_forward\ttest_reverse\t177\t255\tmedium_test_sequence\t78\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA"
+        expected_results = "test_forward\ttest_reverse\t177\t255\t78\tmedium_test_sequence\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA"
         forward_primer, reverse_primer = primers
         actual_results = calculate_pcr_product(
             sequence=medium_sequence_1,
@@ -86,10 +87,38 @@ class TestCalculatePCRPRoduct:
 
         assert expected_results == actual_results
 
+    def test_invalid_cols_string(
+        self, primers: List[FastaSequence], medium_sequence_1: FastaSequence
+    ) -> None:
+        forward_primer, reverse_primer = primers
+        with pytest.raises(InvalidColumnSelectionError):
+            calculate_pcr_product(
+                sequence=medium_sequence_1,
+                forward_primer=forward_primer,
+                reverse_primer=reverse_primer,
+                cols="invalid cols string",
+            )
+
+    def test_selected_columns(
+        self, primers: List[FastaSequence], small_sequence_1: FastaSequence
+    ) -> None:
+        expected_results = "test_forward\ttest_reverse\t31\ttest_sequence"
+
+        forward_primer, reverse_primer = primers
+        actual_results = calculate_pcr_product(
+            sequence=small_sequence_1,
+            forward_primer=forward_primer,
+            reverse_primer=reverse_primer,
+            header=False,
+            cols="fpri rpri length pname",
+        )
+
+        assert expected_results == actual_results
+
 
 class TestGetPCRProducts:
     def test_simple_sequence(self) -> None:
-        expected_result = "forward_primer.f\treverse_primer.r\t0\t31\tsmall_1\t31\tGGAGCATGCTATGTCGTAGCTGATGCAATTA"
+        expected_result = "forward_primer.f\treverse_primer.r\t0\t31\t31\tsmall_1\tGGAGCATGCTATGTCGTAGCTGATGCAATTA"
         actual_result = get_pcr_products(
             primer_file="tests/test_data/primers/test_primers_1.fa",
             sequence_file="tests/test_data/sequences/small_sequence.fa",
@@ -109,7 +138,7 @@ class TestGetPCRProducts:
         assert expected_result == actual_result
 
     def test_maximum_product_length(self) -> None:
-        expected_results = "forward_primer.f\treverse_primer.r\t177\t255\tsingle_test_sequence\t78\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA\nforward_primer.f\treverse_primer.r\t528\t586\tsingle_test_sequence\t58\tGGAGTAATGATACTCAAACAACACTGAGAAAACCAACCCTGTTTCTGATTCCACATTA"
+        expected_results = "forward_primer.f\treverse_primer.r\t177\t255\t78\tsingle_test_sequence\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA\nforward_primer.f\treverse_primer.r\t528\t586\t58\tsingle_test_sequence\tGGAGTAATGATACTCAAACAACACTGAGAAAACCAACCCTGTTTCTGATTCCACATTA"
         actual_result = get_pcr_products(
             primer_file="tests/test_data/primers/test_primers_1.fa",
             sequence_file="tests/test_data/sequences/single_test.fa",
@@ -120,7 +149,7 @@ class TestGetPCRProducts:
         assert expected_results == actual_result
 
     def test_product_length_range(self) -> None:
-        expected_results = "forward_primer.f\treverse_primer.r\t177\t255\tsingle_test_sequence\t78\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA"
+        expected_results = "forward_primer.f\treverse_primer.r\t177\t255\t78\tsingle_test_sequence\tGGAGAAAGATTTCTCTTGAAGATCTTTTCTGTTCCACTTCAAACCTTCCTTCCCCTACTAAAGGGAATCTCCCAATTA"
         actual_results = get_pcr_products(
             primer_file="tests/test_data/primers/test_primers_1.fa",
             sequence_file="tests/test_data/sequences/single_test.fa",
@@ -130,3 +159,23 @@ class TestGetPCRProducts:
         )
 
         assert expected_results == actual_results
+
+    def test_invalid_cols_string(self) -> None:
+        with pytest.raises(InvalidColumnSelectionError):
+            get_pcr_products(
+                primer_file="tests/test_data/primers/test_primers_1.fa",
+                sequence_file="tests/test_data/sequences/single_test.fa",
+                cols="invalid cols string",
+            )
+
+    def test_selected_columns(self) -> None:
+        expected_results = "forward_primer.f\treverse_primer.r\t78\tsingle_test_sequence\nforward_primer.f\treverse_primer.r\t58\tsingle_test_sequence"
+        actual_result = get_pcr_products(
+            primer_file="tests/test_data/primers/test_primers_1.fa",
+            sequence_file="tests/test_data/sequences/single_test.fa",
+            max_product_length=100,
+            header=False,
+            cols="fpri rpri length pname",
+        )
+
+        assert expected_results == actual_result

@@ -4,12 +4,14 @@ from typing import Union
 from ispcr.FastaSequence import FastaSequence
 from ispcr.utils import (
     desired_product_size,
+    filter_output_line,
+    parse_selected_cols,
     read_sequences_from_file,
     reverse_complement,
 )
 
-base_header = (
-    "forward_primer\treverse_primer\tstart\tproduct_sequence\tend\tlength\tsequence"
+BASE_HEADER = (
+    "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_name\tproduct_sequence"
 )
 
 
@@ -19,7 +21,9 @@ def calculate_pcr_product(
     reverse_primer: FastaSequence,
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
-    header: Union[bool, str] = True,
+    header: bool = True,
+    cols: str = "all",
+    output_file: Union[bool, str] = False,
 ) -> str:
     """Returns the products amplified by a pair of primers against a single sequence.
 
@@ -45,6 +49,32 @@ def calculate_pcr_product(
         If provided, only return those products whose length are greater than or equal to this number.
         Defaults to None, which returns all products found.
 
+    max_product_length: None | int
+        If provided, only return those products whose length are less than or equal to this number.
+        Defaults to None, which returns all products found.
+
+    header: bool | str
+        Whether or not to print a header on the results. Defaults to True. False will not print out the header.
+
+    cols: str
+        Which columns to print out. Defaults to "all," which prints out all the columns. A string can be supplied to
+        only output the strings of interest. For example, cols="fpri rpri pname" will only output the names of the forward
+        primer, reverse primer, and the target sequence when a target is found.
+        Available options are:
+            fpri - the name of the forward primer
+            rpri - the name of the reverse primer
+            start - the start location of the product in the target sequence
+            end - the end location of the product in the target sequence
+            length - the length of the product
+            pname - the name of the sequence in which the target was found
+            pseq - the nucleotide sequnce of the amplified product
+
+    output_file: bool | str
+        The file to write the results out to. Defaults to False, which will not print anything out. Providing a string
+        will create that input file at that location. If set to True without providing a string, the output file
+        will be of the form <DD-MM-YYYY_HH:MM:SS>.txt
+
+
 
     Outputs
     -------
@@ -58,15 +88,19 @@ def calculate_pcr_product(
         6. The product
 
     """
+
+    products = []
+
+    # Check cols string
+    selected_column_indices = parse_selected_cols(cols)
+
+    if header is True:
+        products.append(filter_output_line(BASE_HEADER, selected_column_indices))
+
     forward_matches = [
         match.start()
         for match in re.finditer(forward_primer.sequence, sequence.sequence)
     ]
-
-    products = []
-
-    if header is True:
-        products.append(base_header)
 
     for forward_match in forward_matches:
         tempseq = sequence[forward_match:]
@@ -91,9 +125,16 @@ def calculate_pcr_product(
             ):
                 continue
 
-            product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{sequence.header}\t{product_length}\t{product}"
-            products.append(product_line)
-    return "\n".join(products)
+            product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{product_length}\t{sequence.header}\t{product}"
+            products.append(filter_output_line(product_line, selected_column_indices))
+
+    results = "\n".join(products)
+
+    if isinstance(output_file, str) is True:
+        with open(output_file, "w") as fout:
+            fout.write(results)
+
+    return results
 
 
 def get_pcr_products(
@@ -102,6 +143,8 @@ def get_pcr_products(
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
     header: Union[bool, str] = True,
+    cols: str = "all",
+    output_file: Union[bool, str] = False,
 ) -> str:
     """Returns all the products amplified by a set of primers in all sequences in a fasta file.
 
@@ -123,6 +166,31 @@ def get_pcr_products(
         If provided, only return those products whose length are greater than or equal to this number.
         Defaults to None, which returns all products found.
 
+    max_product_length: None | int
+        If provided, only return those products whose length are less than or equal to this number.
+        Defaults to None, which returns all products found.
+
+    header: bool
+        Whether or not to print a header on the results. Defaults to True. False will not print out the header.
+
+    cols: str
+        Which columns to print out. Defaults to "all," which prints out all the columns. A string can be supplied to
+        only output the strings of interest. For example, cols="fpri rpri pname" will only output the names of the forward
+        primer, reverse primer, and the target sequence when a target is found.
+        Available options are:
+            fpri - the name of the forward primer
+            rpri - the name of the reverse primer
+            start - the start location of the product in the target sequence
+            end - the end location of the product in the target sequence
+            length - the length of the product
+            pname - the name of the sequence in which the target was found
+            pseq - the nucleotide sequnce of the amplified product
+
+    output_file: bool | str
+        The file to write the results out to. Defaults to False, which will not print anything out. Providing a string
+        will create that input file at that location. If set to True without providing a string, the output file
+        will be of the form <DD-MM-YYYY_HH:MM:SS>.txt
+
 
     Outputs
     -------
@@ -136,18 +204,21 @@ def get_pcr_products(
         6. The product
 
     """
-    primers = read_sequences_from_file(primer_file)
-    forward_primer, reverse_primer = primers
 
-    sequences = read_sequences_from_file(sequence_file)
     products = []
 
     # If anything gets passed for the header, it gets handled here instead of in
     # calculate_pcr_product.
-    if header:
-        products.append(base_header)
-    elif isinstance(header, str):
-        return "This is a string"
+
+    selected_column_indices = parse_selected_cols(cols)
+
+    if header is True:
+        products.append(filter_output_line(BASE_HEADER, selected_column_indices))
+
+    primers = read_sequences_from_file(primer_file)
+    forward_primer, reverse_primer = primers
+
+    sequences = read_sequences_from_file(sequence_file)
 
     for sequence in sequences:
         new_products = calculate_pcr_product(
@@ -157,6 +228,15 @@ def get_pcr_products(
             min_product_length=min_product_length,
             max_product_length=max_product_length,
             header=False,
+            cols=cols,
         )
-        products.append(new_products)
-    return "\n".join(products)
+        if new_products:
+            products.append(new_products)
+
+    results = "\n".join(products)
+
+    if isinstance(output_file, str) is True:
+        with open(output_file, "w") as fout:
+            fout.write(results)
+
+    return results

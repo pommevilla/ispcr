@@ -6,6 +6,20 @@ from typing import Iterator, List, TextIO, Union
 
 from ispcr.FastaSequence import FastaSequence
 
+COLUMN_HEADERS = {
+    "fpri": 0,
+    "rpri": 1,
+    "start": 2,
+    "end": 3,
+    "length": 4,
+    "pname": 5,
+    "pseq": 6,
+}
+
+BASE_HEADER = (
+    "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_name\tproduct_sequence"
+)
+
 
 def desired_product_size(
     potential_product_length: int,
@@ -119,9 +133,59 @@ def read_fasta(fasta_file: TextIO) -> Iterator[FastaSequence]:
 
 
 def read_sequences_from_file(primer_file: str) -> List[FastaSequence]:
-    primers = []
+    sequences = []
     with open(primer_file) as fin:
         for fasta_sequence in read_fasta(fin):
-            primers.append(fasta_sequence)
+            sequences.append(fasta_sequence)
 
-    return primers
+    return sequences
+
+
+def is_valid_cols_string(header_string: str) -> bool:
+    """
+    Internal helper to check if a header string is valid.
+    """
+    if not header_string:
+        return False
+
+    for col_name in header_string.split():
+        if col_name not in COLUMN_HEADERS:
+            return False
+
+    return True
+
+
+def get_column_indices(header_string: str) -> List[int]:
+    """
+    Returns column indices based on a header string.
+    """
+    return [COLUMN_HEADERS[col] for col in header_string.split()]
+
+
+def filter_output_line(output_line: str, column_indices: List[int]) -> str:
+    """
+    Filters a single line of isPCR results based on selected column indices.
+    """
+
+    if not output_line.split():
+        return ""
+    elif column_indices == list(range(7)):
+        return output_line
+    else:
+        columns = output_line.split()
+        return "\t".join([columns[i] for i in column_indices])
+
+
+def parse_selected_cols(cols: str) -> List[int]:
+    if cols != "all":
+        if not is_valid_cols_string(cols):
+            raise InvalidColumnSelectionError("Invalid header string.")
+        else:
+            selected_column_indices = get_column_indices(cols)
+    else:
+        selected_column_indices = list(range(len(BASE_HEADER.split())))
+    return selected_column_indices
+
+
+class InvalidColumnSelectionError(Exception):
+    pass
