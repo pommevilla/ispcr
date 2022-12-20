@@ -4,6 +4,7 @@ import pytest
 
 from ispcr import calculate_pcr_product, get_pcr_products
 from ispcr.FastaSequence import FastaSequence
+from ispcr.utils import InvalidHeaderError
 
 
 class TestCalculatePCRPRoduct:
@@ -86,6 +87,20 @@ class TestCalculatePCRPRoduct:
 
         assert expected_results == actual_results
 
+    def test_invalid_header(
+        self, primers: List[FastaSequence], medium_sequence_1: FastaSequence
+    ) -> None:
+        forward_primer, reverse_primer = primers
+        with pytest.raises(InvalidHeaderError):
+            calculate_pcr_product(
+                sequence=medium_sequence_1,
+                forward_primer=forward_primer,
+                reverse_primer=reverse_primer,
+                min_product_length=75,
+                max_product_length=100,
+                header="invalid header name",
+            )
+
 
 class TestGetPCRProducts:
     def test_simple_sequence(self) -> None:
@@ -130,3 +145,13 @@ class TestGetPCRProducts:
         )
 
         assert expected_results == actual_results
+
+    def test_invalid_header_string(self) -> None:
+        with pytest.raises(InvalidHeaderError):
+            get_pcr_products(
+                primer_file="tests/test_data/primers/test_primers_1.fa",
+                sequence_file="tests/test_data/sequences/single_test.fa",
+                min_product_length=75,
+                max_product_length=100,
+                header="fake column name",
+            )

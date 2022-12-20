@@ -3,7 +3,9 @@ from typing import Union
 
 from ispcr.FastaSequence import FastaSequence
 from ispcr.utils import (
+    InvalidHeaderError,
     desired_product_size,
+    is_valid_header_string,
     read_sequences_from_file,
     reverse_complement,
 )
@@ -82,6 +84,9 @@ def calculate_pcr_product(
 
     if header is True:
         products.append(BASE_HEADER)
+    elif isinstance(header, str):
+        if not is_valid_header_string(header):
+            raise InvalidHeaderError("Invalid header string.")
 
     for forward_match in forward_matches:
         tempseq = sequence[forward_match:]
@@ -180,10 +185,11 @@ def get_pcr_products(
 
     # If anything gets passed for the header, it gets handled here instead of in
     # calculate_pcr_product.
-    if header:
+    if header is True:
         products.append(BASE_HEADER)
     elif isinstance(header, str):
-        return "This is a string"
+        if not is_valid_header_string(header):
+            raise InvalidHeaderError("Invalid header string.")
 
     for sequence in sequences:
         new_products = calculate_pcr_product(

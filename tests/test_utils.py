@@ -3,7 +3,12 @@ from typing import Iterator, List
 import pytest
 
 from ispcr.FastaSequence import FastaSequence
-from ispcr.utils import desired_product_size, read_fasta, reverse_complement
+from ispcr.utils import (
+    desired_product_size,
+    is_valid_header_string,
+    read_fasta,
+    reverse_complement,
+)
 
 
 class TestReverseComplement:
@@ -143,3 +148,35 @@ class TestDesiredProductSize:
                 min_product_length=min_product_length,
                 max_product_length=max_product_length,
             )
+
+
+class TestIsValidHeaderString:
+    @pytest.fixture(scope="class")
+    def base_header(self) -> Iterator[str]:
+        yield "fpri\trpri\tstart\tend\tlength\tpname\tpseq"
+
+    def test_empty_string(self) -> None:
+        expected = False
+        actual = is_valid_header_string("")
+
+        assert actual == expected
+
+    def test_existing_headers_in_order(self, base_header: str) -> None:
+
+        for col_header in base_header.split():
+            assert is_valid_header_string(col_header)
+
+    def test_existing_headers_out_of_order(self, base_header: str) -> None:
+        from random import shuffle
+
+        column_headers = base_header.split()
+        shuffle(column_headers)
+
+        for col_header in column_headers:
+            assert is_valid_header_string(col_header)
+
+    def test_single_wrong_header(self) -> None:
+        expected = False
+        actual = is_valid_header_string("forward_primer")
+
+        assert actual == expected

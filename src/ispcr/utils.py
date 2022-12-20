@@ -6,6 +6,16 @@ from typing import Iterator, List, TextIO, Union
 
 from ispcr.FastaSequence import FastaSequence
 
+COLUMN_HEADERS = {
+    "fpri": 0,
+    "rpri": 1,
+    "start": 2,
+    "end": 3,
+    "length": 4,
+    "pname": 5,
+    "pseq": 6,
+}
+
 
 def desired_product_size(
     potential_product_length: int,
@@ -125,3 +135,21 @@ def read_sequences_from_file(primer_file: str) -> List[FastaSequence]:
             primers.append(fasta_sequence)
 
     return primers
+
+
+def is_valid_header_string(header_string: str) -> bool:
+    """
+    Internal helper to check if a header string is valid.
+    """
+    if not header_string:
+        return False
+
+    for col_name in header_string.split():
+        if col_name not in COLUMN_HEADERS:
+            return False
+
+    return True
+
+
+class InvalidHeaderError(Exception):
+    pass
