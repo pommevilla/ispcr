@@ -75,10 +75,6 @@ def calculate_pcr_product(
         6. The product
 
     """
-    forward_matches = [
-        match.start()
-        for match in re.finditer(forward_primer.sequence, sequence.sequence)
-    ]
 
     products = []
 
@@ -87,6 +83,11 @@ def calculate_pcr_product(
     elif isinstance(header, str):
         if not is_valid_header_string(header):
             raise InvalidHeaderError("Invalid header string.")
+
+    forward_matches = [
+        match.start()
+        for match in re.finditer(forward_primer.sequence, sequence.sequence)
+    ]
 
     for forward_match in forward_matches:
         tempseq = sequence[forward_match:]
@@ -177,10 +178,7 @@ def get_pcr_products(
         6. The product
 
     """
-    primers = read_sequences_from_file(primer_file)
-    forward_primer, reverse_primer = primers
 
-    sequences = read_sequences_from_file(sequence_file)
     products = []
 
     # If anything gets passed for the header, it gets handled here instead of in
@@ -190,6 +188,11 @@ def get_pcr_products(
     elif isinstance(header, str):
         if not is_valid_header_string(header):
             raise InvalidHeaderError("Invalid header string.")
+
+    primers = read_sequences_from_file(primer_file)
+    forward_primer, reverse_primer = primers
+
+    sequences = read_sequences_from_file(sequence_file)
 
     for sequence in sequences:
         new_products = calculate_pcr_product(
