@@ -99,6 +99,22 @@ class TestCalculatePCRPRoduct:
                 cols="invalid cols string",
             )
 
+    def test_selected_columns(
+        self, primers: List[FastaSequence], small_sequence_1: FastaSequence
+    ) -> None:
+        expected_results = "test_forward\ttest_reverse\t31\ttest_sequence"
+
+        forward_primer, reverse_primer = primers
+        actual_results = calculate_pcr_product(
+            sequence=small_sequence_1,
+            forward_primer=forward_primer,
+            reverse_primer=reverse_primer,
+            header=False,
+            cols="fpri rpri length pname",
+        )
+
+        assert expected_results == actual_results
+
 
 class TestGetPCRProducts:
     def test_simple_sequence(self) -> None:
@@ -151,3 +167,15 @@ class TestGetPCRProducts:
                 sequence_file="tests/test_data/sequences/single_test.fa",
                 cols="invalid cols string",
             )
+
+    def test_selected_columns(self) -> None:
+        expected_results = "forward_primer.f\treverse_primer.r\t78\tsingle_test_sequence\nforward_primer.f\treverse_primer.r\t58\tsingle_test_sequence"
+        actual_result = get_pcr_products(
+            primer_file="tests/test_data/primers/test_primers_1.fa",
+            sequence_file="tests/test_data/sequences/single_test.fa",
+            max_product_length=100,
+            header=False,
+            cols="fpri rpri length pname",
+        )
+
+        assert expected_results == actual_result

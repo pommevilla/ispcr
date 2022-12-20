@@ -55,7 +55,19 @@ def calculate_pcr_product(
 
     header: bool | str
         Whether or not to print a header on the results. Defaults to True. False will not print out the header.
-        Upcoming feature: providing a string will select certain columns from the output
+
+    cols: str
+        Which columns to print out. Defaults to "all," which prints out all the columns. A string can be supplied to
+        only output the strings of interest. For example, cols="fpri rpri pname" will only output the names of the forward
+        primer, reverse primer, and the target sequence when a target is found.
+        Available options are:
+            fpri - the name of the forward primer
+            rpri - the name of the reverse primer
+            start - the start location of the product in the target sequence
+            end - the end location of the product in the target sequence
+            length - the length of the product
+            pname - the name of the sequence in which the target was found
+            pseq - the nucleotide sequnce of the amplified product
 
     output_file: bool | str
         The file to write the results out to. Defaults to False, which will not print anything out. Providing a string
@@ -158,9 +170,21 @@ def get_pcr_products(
         If provided, only return those products whose length are less than or equal to this number.
         Defaults to None, which returns all products found.
 
-    header: bool | str
+    header: bool
         Whether or not to print a header on the results. Defaults to True. False will not print out the header.
-        Upcoming feature: providing a string will select certain columns from the output
+
+    cols: str
+        Which columns to print out. Defaults to "all," which prints out all the columns. A string can be supplied to
+        only output the strings of interest. For example, cols="fpri rpri pname" will only output the names of the forward
+        primer, reverse primer, and the target sequence when a target is found.
+        Available options are:
+            fpri - the name of the forward primer
+            rpri - the name of the reverse primer
+            start - the start location of the product in the target sequence
+            end - the end location of the product in the target sequence
+            length - the length of the product
+            pname - the name of the sequence in which the target was found
+            pseq - the nucleotide sequnce of the amplified product
 
     output_file: bool | str
         The file to write the results out to. Defaults to False, which will not print anything out. Providing a string
