@@ -129,12 +129,12 @@ def read_fasta(fasta_file: TextIO) -> Iterator[FastaSequence]:
 
 
 def read_sequences_from_file(primer_file: str) -> List[FastaSequence]:
-    primers = []
+    sequences = []
     with open(primer_file) as fin:
         for fasta_sequence in read_fasta(fin):
-            primers.append(fasta_sequence)
+            sequences.append(fasta_sequence)
 
-    return primers
+    return sequences
 
 
 def is_valid_header_string(header_string: str) -> bool:
