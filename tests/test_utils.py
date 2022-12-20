@@ -3,7 +3,16 @@ from typing import Iterator, List
 import pytest
 
 from ispcr.FastaSequence import FastaSequence
-from ispcr.utils import read_fasta, reverse_complement
+from ispcr.utils import (
+    InvalidColumnSelectionError,
+    desired_product_size,
+    filter_output_line,
+    get_column_indices,
+    is_valid_cols_string,
+    parse_selected_cols,
+    read_fasta,
+    reverse_complement,
+)
 
 
 class TestReverseComplement:
@@ -58,3 +67,209 @@ class TestReaderUtils:
         actual_single_header = single_test_sequence.header
 
         assert expected_single_header == actual_single_header
+
+
+class TestDesiredProductSize:
+    def test_min_none_pass(self) -> None:
+        min_product_length, max_product_length = None, 200
+        potential_product_size = 150
+        expected = True
+        actual = desired_product_size(
+            potential_product_size, min_product_length, max_product_length
+        )
+
+        assert actual == expected
+
+    def test_min_none_fail(self) -> None:
+        min_product_length, max_product_length = None, 200
+        potential_product_size = 300
+        expected = False
+        actual = desired_product_size(
+            potential_product_size, min_product_length, max_product_length
+        )
+
+        assert actual == expected
+
+    def test_max_none_pass(self) -> None:
+        min_product_length, max_product_length = 100, None
+        potential_product_size = 150
+        expected = True
+        actual = desired_product_size(
+            potential_product_size, min_product_length, max_product_length
+        )
+
+        assert actual == expected
+
+    def test_max_none_fail(self) -> None:
+        min_product_length, max_product_length = 100, None
+        potential_product_size = 50
+        expected = False
+        actual = desired_product_size(
+            potential_product_size, min_product_length, max_product_length
+        )
+
+        assert actual == expected
+
+    def test_both_none_pass(self) -> None:
+        min_product_length, max_product_length = None, None
+        potential_product_sizes = [5, 50, 150, 250, 1000]
+        expected = True
+
+        for potential_product_size in potential_product_sizes:
+            actual = desired_product_size(
+                potential_product_size, min_product_length, max_product_length
+            )
+            assert actual == expected
+
+    def test_both_pass(self) -> None:
+        min_product_length, max_product_length = 75, 250
+        potential_product_sizes = [75, 100, 150, 250]
+        expected = True
+
+        for potential_product_size in potential_product_sizes:
+            actual = desired_product_size(
+                potential_product_size, min_product_length, max_product_length
+            )
+            assert actual == expected
+
+    def test_both_fail(self) -> None:
+        min_product_length, max_product_length = 75, 250
+        potential_product_sizes = [1, 50, 74, 251, 1000]
+        expected = False
+
+        for potential_product_size in potential_product_sizes:
+            actual = desired_product_size(
+                potential_product_size, min_product_length, max_product_length
+            )
+            assert actual == expected
+
+    def test_improper_limits(self) -> None:
+        min_product_length, max_product_length = 200, 100
+
+        with pytest.raises(ValueError):
+            desired_product_size(
+                20,
+                min_product_length=min_product_length,
+                max_product_length=max_product_length,
+            )
+
+
+class TestIsValidHeaderString:
+    @pytest.fixture(scope="class")
+    def base_header(self) -> Iterator[str]:
+        yield "fpri\trpri\tstart\tend\tlength\tpname\tpseq"
+
+    def test_empty_string(self) -> None:
+        expected = False
+        actual = is_valid_cols_string("")
+
+        assert actual == expected
+
+    def test_existing_headers_in_order(self, base_header: str) -> None:
+
+        for col_header in base_header.split():
+            assert is_valid_cols_string(col_header)
+
+    def test_existing_headers_out_of_order(self, base_header: str) -> None:
+        from random import shuffle
+
+        column_headers = base_header.split()
+        shuffle(column_headers)
+
+        for col_header in column_headers:
+            assert is_valid_cols_string(col_header)
+
+    def test_single_wrong_header(self) -> None:
+        expected = False
+        actual = is_valid_cols_string("forward_primer")
+
+        assert actual == expected
+
+
+class TestGetColumnIndicies:
+    @pytest.fixture(scope="class")
+    def base_header(self) -> Iterator[str]:
+        yield "fpri\trpri\tstart\tend\tlength\tpname\tpseq"
+
+    def test_empty_string(self) -> None:
+        expected: List[int] = []
+        actual = get_column_indices("")
+
+        assert expected == actual
+
+    def test_product_columns(self) -> None:
+        expected = [5, 6]
+        actual = get_column_indices("pname pseq")
+
+        assert expected == actual
+
+    def test_out_of_order(self) -> None:
+        expected = [1, 0, 4, 3]
+        actual = get_column_indices("rpri fpri length end")
+
+        assert expected == actual
+
+    def test_default_columns(self, base_header: str) -> None:
+        expected = list(range(len(base_header.split())))
+        actual = get_column_indices("fpri\trpri\tstart\tend\tlength\tpname\tpseq")
+
+        assert actual == expected
+
+
+class TestFilterOutputLine:
+    @pytest.fixture(scope="class")
+    def base_header(self) -> Iterator[str]:
+        yield "fpri\trpri\tstart\tend\tlength\tpname\tpseq"
+
+    @pytest.fixture(scope="class")
+    def small_product_line(self) -> Iterator[str]:
+        yield "forward_primer.f\treverse_primer.r\t0\t31\t31\ttest_sequence\tGGAGCATGCTATGTCGTAGCTGATGCAATTA"
+
+    def test_no_output_columns_small_products(self, small_product_line: str) -> None:
+        expected = ""
+        col_indices: List[int] = []
+        actual = filter_output_line(small_product_line, column_indices=col_indices)
+
+        assert expected == actual
+
+    def test_checks_for_default_header(self, base_header: str) -> None:
+        expected = base_header
+        actual = filter_output_line(base_header, list(range(7)))
+
+        assert expected == actual
+
+    def test_no_early_return_when_line_header_string_out_of_order(
+        self, base_header: str
+    ) -> None:
+        expected = "pname\trpri\tend\tlength\tstart\tpseq\tfpri"
+        actual = filter_output_line(base_header, [5, 1, 3, 4, 2, 6, 0])
+
+        assert expected == actual
+
+    def test_product_info_only(self, small_product_line: str) -> None:
+        expected = "test_sequence\tGGAGCATGCTATGTCGTAGCTGATGCAATTA"
+        actual = filter_output_line(small_product_line, [5, 6])
+
+        assert expected == actual
+
+    def test_returns_empty_string(self) -> None:
+        expected = ""
+        actual = filter_output_line("", list(range(7)))
+
+        assert expected == actual
+
+
+class TestParseSelectedCols:
+    @pytest.fixture(scope="class")
+    def base_header(self) -> Iterator[str]:
+        yield "fpri\trpri\tstart\tend\tlength\tpname\tpseq"
+
+    def test_exits_on_invalid_cols(self) -> None:
+        with pytest.raises(InvalidColumnSelectionError):
+            parse_selected_cols("invalid col string")
+
+    def test_outputs_default_string(self, base_header: str) -> None:
+        expected = list(range(len(base_header.split())))
+        actual = parse_selected_cols(base_header)
+
+        assert expected == actual
