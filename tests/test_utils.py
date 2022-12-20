@@ -4,8 +4,12 @@ import pytest
 
 from ispcr.FastaSequence import FastaSequence
 from ispcr.utils import (
+    InvalidColumnSelectionError,
     desired_product_size,
-    is_valid_header_string,
+    filter_output_line,
+    get_column_indices,
+    is_valid_cols_string,
+    parse_selected_cols,
     read_fasta,
     reverse_complement,
 )
@@ -157,14 +161,14 @@ class TestIsValidHeaderString:
 
     def test_empty_string(self) -> None:
         expected = False
-        actual = is_valid_header_string("")
+        actual = is_valid_cols_string("")
 
         assert actual == expected
 
     def test_existing_headers_in_order(self, base_header: str) -> None:
 
         for col_header in base_header.split():
-            assert is_valid_header_string(col_header)
+            assert is_valid_cols_string(col_header)
 
     def test_existing_headers_out_of_order(self, base_header: str) -> None:
         from random import shuffle
@@ -173,10 +177,99 @@ class TestIsValidHeaderString:
         shuffle(column_headers)
 
         for col_header in column_headers:
-            assert is_valid_header_string(col_header)
+            assert is_valid_cols_string(col_header)
 
     def test_single_wrong_header(self) -> None:
         expected = False
-        actual = is_valid_header_string("forward_primer")
+        actual = is_valid_cols_string("forward_primer")
 
         assert actual == expected
+
+
+class TestGetColumnIndicies:
+    @pytest.fixture(scope="class")
+    def base_header(self) -> Iterator[str]:
+        yield "fpri\trpri\tstart\tend\tlength\tpname\tpseq"
+
+    def test_empty_string(self) -> None:
+        expected: List[int] = []
+        actual = get_column_indices("")
+
+        assert expected == actual
+
+    def test_product_columns(self) -> None:
+        expected = [5, 6]
+        actual = get_column_indices("pname pseq")
+
+        assert expected == actual
+
+    def test_out_of_order(self) -> None:
+        expected = [1, 0, 4, 3]
+        actual = get_column_indices("rpri fpri length end")
+
+        assert expected == actual
+
+    def test_default_columns(self, base_header: str) -> None:
+        expected = list(range(len(base_header.split())))
+        actual = get_column_indices("fpri\trpri\tstart\tend\tlength\tpname\tpseq")
+
+        assert actual == expected
+
+
+class TestFilterOutputLine:
+    @pytest.fixture(scope="class")
+    def base_header(self) -> Iterator[str]:
+        yield "fpri\trpri\tstart\tend\tlength\tpname\tpseq"
+
+    @pytest.fixture(scope="class")
+    def small_product_line(self) -> Iterator[str]:
+        yield "forward_primer.f\treverse_primer.r\t0\t31\t31\ttest_sequence\tGGAGCATGCTATGTCGTAGCTGATGCAATTA"
+
+    def test_no_output_columns_small_products(self, small_product_line: str) -> None:
+        expected = ""
+        col_indices: List[int] = []
+        actual = filter_output_line(small_product_line, column_indices=col_indices)
+
+        assert expected == actual
+
+    def test_checks_for_default_header(self, base_header: str) -> None:
+        expected = base_header
+        actual = filter_output_line(base_header, list(range(7)))
+
+        assert expected == actual
+
+    def test_no_early_return_when_line_header_string_out_of_order(
+        self, base_header: str
+    ) -> None:
+        expected = "pname\trpri\tend\tlength\tstart\tpseq\tfpri"
+        actual = filter_output_line(base_header, [5, 1, 3, 4, 2, 6, 0])
+
+        assert expected == actual
+
+    def test_product_info_only(self, small_product_line: str) -> None:
+        expected = "test_sequence\tGGAGCATGCTATGTCGTAGCTGATGCAATTA"
+        actual = filter_output_line(small_product_line, [5, 6])
+
+        assert expected == actual
+
+    def test_returns_empty_string(self) -> None:
+        expected = ""
+        actual = filter_output_line("", list(range(7)))
+
+        assert expected == actual
+
+
+class TestParseSelectedCols:
+    @pytest.fixture(scope="class")
+    def base_header(self) -> Iterator[str]:
+        yield "fpri\trpri\tstart\tend\tlength\tpname\tpseq"
+
+    def test_exits_on_invalid_cols(self) -> None:
+        with pytest.raises(InvalidColumnSelectionError):
+            parse_selected_cols("invalid col string")
+
+    def test_outputs_default_string(self, base_header: str) -> None:
+        expected = list(range(len(base_header.split())))
+        actual = parse_selected_cols(base_header)
+
+        assert expected == actual

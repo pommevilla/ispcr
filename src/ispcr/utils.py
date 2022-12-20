@@ -16,6 +16,10 @@ COLUMN_HEADERS = {
     "pseq": 6,
 }
 
+BASE_HEADER = (
+    "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_name\tproduct_sequence"
+)
+
 
 def desired_product_size(
     potential_product_length: int,
@@ -137,7 +141,7 @@ def read_sequences_from_file(primer_file: str) -> List[FastaSequence]:
     return sequences
 
 
-def is_valid_header_string(header_string: str) -> bool:
+def is_valid_cols_string(header_string: str) -> bool:
     """
     Internal helper to check if a header string is valid.
     """
@@ -151,5 +155,37 @@ def is_valid_header_string(header_string: str) -> bool:
     return True
 
 
-class InvalidHeaderError(Exception):
+def get_column_indices(header_string: str) -> List[int]:
+    """
+    Returns column indices based on a header string.
+    """
+    return [COLUMN_HEADERS[col] for col in header_string.split()]
+
+
+def filter_output_line(output_line: str, column_indices: List[int]) -> str:
+    """
+    Filters a single line of isPCR results based on selected column indices.
+    """
+
+    if not output_line.split():
+        return ""
+    elif column_indices == list(range(7)):
+        return output_line
+    else:
+        columns = output_line.split()
+        return "\t".join([columns[i] for i in column_indices])
+
+
+def parse_selected_cols(cols: str) -> List[int]:
+    if cols != "all":
+        if not is_valid_cols_string(cols):
+            raise InvalidColumnSelectionError("Invalid header string.")
+        else:
+            selected_column_indices = get_column_indices(cols)
+    else:
+        selected_column_indices = list(range(len(BASE_HEADER.split())))
+    return selected_column_indices
+
+
+class InvalidColumnSelectionError(Exception):
     pass

@@ -3,9 +3,9 @@ from typing import Union
 
 from ispcr.FastaSequence import FastaSequence
 from ispcr.utils import (
-    InvalidHeaderError,
     desired_product_size,
-    is_valid_header_string,
+    filter_output_line,
+    parse_selected_cols,
     read_sequences_from_file,
     reverse_complement,
 )
@@ -21,7 +21,8 @@ def calculate_pcr_product(
     reverse_primer: FastaSequence,
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
-    header: Union[bool, str] = True,
+    header: bool = True,
+    cols: str = "all",
     output_file: Union[bool, str] = False,
 ) -> str:
     """Returns the products amplified by a pair of primers against a single sequence.
@@ -78,11 +79,11 @@ def calculate_pcr_product(
 
     products = []
 
+    # Check cols string
+    selected_column_indices = parse_selected_cols(cols)
+
     if header is True:
-        products.append(BASE_HEADER)
-    elif isinstance(header, str):
-        if not is_valid_header_string(header):
-            raise InvalidHeaderError("Invalid header string.")
+        products.append(filter_output_line(BASE_HEADER, selected_column_indices))
 
     forward_matches = [
         match.start()
@@ -113,7 +114,7 @@ def calculate_pcr_product(
                 continue
 
             product_line = f"{forward_primer.header}\t{reverse_primer.header}\t{start}\t{end}\t{product_length}\t{sequence.header}\t{product}"
-            products.append(product_line)
+            products.append(filter_output_line(product_line, selected_column_indices))
 
     results = "\n".join(products)
 
@@ -130,6 +131,7 @@ def get_pcr_products(
     min_product_length: Union[int, None] = None,
     max_product_length: Union[int, None] = None,
     header: Union[bool, str] = True,
+    cols: str = "all",
     output_file: Union[bool, str] = False,
 ) -> str:
     """Returns all the products amplified by a set of primers in all sequences in a fasta file.
@@ -183,11 +185,11 @@ def get_pcr_products(
 
     # If anything gets passed for the header, it gets handled here instead of in
     # calculate_pcr_product.
+
+    selected_column_indices = parse_selected_cols(cols)
+
     if header is True:
-        products.append(BASE_HEADER)
-    elif isinstance(header, str):
-        if not is_valid_header_string(header):
-            raise InvalidHeaderError("Invalid header string.")
+        products.append(filter_output_line(BASE_HEADER, selected_column_indices))
 
     primers = read_sequences_from_file(primer_file)
     forward_primer, reverse_primer = primers
@@ -202,6 +204,7 @@ def get_pcr_products(
             min_product_length=min_product_length,
             max_product_length=max_product_length,
             header=False,
+            cols=cols,
         )
         if new_products:
             products.append(new_products)
