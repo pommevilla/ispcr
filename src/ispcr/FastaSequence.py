@@ -1,13 +1,14 @@
 """
 Generic fasta sequence class.
 """
+from dataclasses import dataclass
 from typing import Iterator, Union
 
 
+@dataclass(frozen=True)
 class FastaSequence:
-    def __init__(self, header: str, sequence: str) -> None:
-        self.header = header
-        self.sequence = sequence
+    header: str
+    sequence: str
 
     def __len__(self) -> int:
         return len(self.sequence)
