@@ -133,6 +133,9 @@ def read_fasta(fasta_file: TextIO) -> Iterator[FastaSequence]:
 
 
 def read_sequences_from_file(primer_file: str) -> List[FastaSequence]:
+    """
+    Reads a fasta file, converts the sequences to FastaSequences, and returns them in a list.
+    """
     sequences = []
     with open(primer_file) as fin:
         for fasta_sequence in read_fasta(fin):
@@ -143,7 +146,7 @@ def read_sequences_from_file(primer_file: str) -> List[FastaSequence]:
 
 def is_valid_cols_string(header_string: str) -> bool:
     """
-    Internal helper to check if a header string is valid.
+    Internal helper to check if a column header string is valid.
     """
     if not header_string:
         return False
@@ -157,7 +160,7 @@ def is_valid_cols_string(header_string: str) -> bool:
 
 def get_column_indices(header_string: str) -> List[int]:
     """
-    Returns column indices based on a header string.
+    Returns column indices based on a column header string.
     """
     return [COLUMN_HEADERS[col] for col in header_string.split()]
 
@@ -177,6 +180,9 @@ def filter_output_line(output_line: str, column_indices: List[int]) -> str:
 
 
 def parse_selected_cols(cols: str) -> List[int]:
+    """
+    Returns a list of int indices based on a column header string.
+    """
     if cols != "all":
         if not is_valid_cols_string(cols):
             raise InvalidColumnSelectionError("Invalid header string.")
