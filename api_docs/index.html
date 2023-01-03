@@ -1,0 +1,2021 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.5.4">
+    
+    
+      
+        <title>API documentation - ispcr</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.80dcb947.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ispcr" class="md-header__button md-logo" aria-label="ispcr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ispcr
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API documentation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pommevilla/ispcr" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ispcr" class="md-nav__button md-logo" aria-label="ispcr" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    ispcr
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pommevilla/ispcr" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          API documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        API documentation
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr" class="md-nav__link">
+    ispcr
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr.calculate_pcr_product" class="md-nav__link">
+    calculate_pcr_product()
+  </a>
+  
+    <nav class="md-nav" aria-label="calculate_pcr_product()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.calculate_pcr_product--inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.calculate_pcr_product--outputs" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr.get_pcr_products" class="md-nav__link">
+    get_pcr_products()
+  </a>
+  
+    <nav class="md-nav" aria-label="get_pcr_products()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.get_pcr_products--inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.get_pcr_products--outputs" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr.FastaSequence" class="md-nav__link">
+    FastaSequence
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr.utils" class="md-nav__link">
+    utils
+  </a>
+  
+    <nav class="md-nav" aria-label="utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.desired_product_size" class="md-nav__link">
+    desired_product_size()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.filter_output_line" class="md-nav__link">
+    filter_output_line()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.get_column_indices" class="md-nav__link">
+    get_column_indices()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.is_valid_cols_string" class="md-nav__link">
+    is_valid_cols_string()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.parse_selected_cols" class="md-nav__link">
+    parse_selected_cols()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.read_fasta" class="md-nav__link">
+    read_fasta()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.read_sequences_from_file" class="md-nav__link">
+    read_sequences_from_file()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement" class="md-nav__link">
+    reverse_complement()
+  </a>
+  
+    <nav class="md-nav" aria-label="reverse_complement()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement--inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement--outputs" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement--raises" class="md-nav__link">
+    Raises
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement--example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog/" class="md-nav__link">
+        Changelog
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr" class="md-nav__link">
+    ispcr
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr.calculate_pcr_product" class="md-nav__link">
+    calculate_pcr_product()
+  </a>
+  
+    <nav class="md-nav" aria-label="calculate_pcr_product()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.calculate_pcr_product--inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.calculate_pcr_product--outputs" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr.get_pcr_products" class="md-nav__link">
+    get_pcr_products()
+  </a>
+  
+    <nav class="md-nav" aria-label="get_pcr_products()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.get_pcr_products--inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.get_pcr_products--outputs" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr.FastaSequence" class="md-nav__link">
+    FastaSequence
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ispcr.utils" class="md-nav__link">
+    utils
+  </a>
+  
+    <nav class="md-nav" aria-label="utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.desired_product_size" class="md-nav__link">
+    desired_product_size()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.filter_output_line" class="md-nav__link">
+    filter_output_line()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.get_column_indices" class="md-nav__link">
+    get_column_indices()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.is_valid_cols_string" class="md-nav__link">
+    is_valid_cols_string()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.parse_selected_cols" class="md-nav__link">
+    parse_selected_cols()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.read_fasta" class="md-nav__link">
+    read_fasta()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.read_sequences_from_file" class="md-nav__link">
+    read_sequences_from_file()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement" class="md-nav__link">
+    reverse_complement()
+  </a>
+  
+    <nav class="md-nav" aria-label="reverse_complement()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement--inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement--outputs" class="md-nav__link">
+    Outputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement--raises" class="md-nav__link">
+    Raises
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ispcr.utils.reverse_complement--example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/pommevilla/ispcr/edit/master/docs/api_docs.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="api-documentation">API documentation</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="ispcr"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="ispcr.calculate_pcr_product" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">calculate_pcr_product</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">FastaSequence</span><span class="p">,</span> <span class="n">forward_primer</span><span class="p">:</span> <span class="n">FastaSequence</span><span class="p">,</span> <span class="n">reverse_primer</span><span class="p">:</span> <span class="n">FastaSequence</span><span class="p">,</span> <span class="n">min_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns the products amplified by a pair of primers against a single sequence.</p>
+<p>This function is meant to be used by find_pcr_product, but if you'd like to use this separately,
+you must supply FastaSequence objects. A FastaSequence is just a convenient object to couple a header
+with a DNA string. For example,
+    &gt;&gt;&gt; forward_primer = FastaSequence("test_forward_primer", "ACTG")
+    &gt;&gt;&gt; reverse_primer = FastaSequence("test_reverse_primer", "ATTA")
+    &gt;&gt;&gt; target_sequence = FastaSequence("target_sequence", "ATGCTGATGCATGCTA")</p>
+<h4 id="ispcr.calculate_pcr_product--inputs">Inputs</h4>
+
+<details class="sequence">
+  <summary>FastaSequence</summary>
+  <p>The fasta sequence to test for amplification.</p>
+</details>
+<details class="forward_primer">
+  <summary>FastaSequence</summary>
+  <p>The forward primer to use.</p>
+</details>
+<details class="reverse_primer">
+  <summary>FastaSequence</summary>
+  <p>The forward primer to use. Note that you should supply this</p>
+</details>
+<details class="min_product_length">
+  <summary>None | int</summary>
+  <p>If provided, only return those products whose length are greater than or equal to this number.
+Defaults to None, which returns all products found.</p>
+</details>
+<details class="max_product_length">
+  <summary>None | int</summary>
+  <p>If provided, only return those products whose length are less than or equal to this number.
+Defaults to None, which returns all products found.</p>
+</details>
+<details class="header">
+  <summary>bool | str</summary>
+  <p>Whether or not to print a header on the results. Defaults to True. False will not print out the header.</p>
+</details>
+<details class="cols">
+  <summary>str</summary>
+  <p>Which columns to print out. Defaults to "all," which prints out all the columns. A string can be supplied to
+only output the strings of interest. For example, cols="fpri rpri pname" will only output the names of the forward
+primer, reverse primer, and the target sequence when a target is found.
+Available options are:
+    fpri - the name of the forward primer
+    rpri - the name of the reverse primer
+    start - the start location of the product in the target sequence
+    end - the end location of the product in the target sequence
+    length - the length of the product
+    pname - the name of the sequence in which the target was found
+    pseq - the nucleotide sequnce of the amplified product</p>
+</details>
+<details class="output_file">
+  <summary>bool | str</summary>
+  <p>The file to write the results out to. Defaults to False, which will not print anything out. Providing a string
+will create that input file at that location. If set to True without providing a string, the output file
+will be of the form <DD-MM-YYYY_HH:MM:SS>.txt</p>
+</details>      <h4 id="ispcr.calculate_pcr_product--outputs">Outputs</h4>
+<p>A tab-separated string containing all of the products amplified by the primers contained in the primer file.</p>
+
+<details class="the-fields-are">
+  <summary>The fields are</summary>
+  <ol>
+<li>Forward primer name</li>
+<li>Reverse primer name</li>
+<li>Start position of the product in the target sequence</li>
+<li>End position of the product in the target sequence</li>
+<li>Product length</li>
+<li>The product</li>
+</ol>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>ispcr/__init__.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">calculate_pcr_product</span><span class="p">(</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="n">FastaSequence</span><span class="p">,</span>
+    <span class="n">forward_primer</span><span class="p">:</span> <span class="n">FastaSequence</span><span class="p">,</span>
+    <span class="n">reverse_primer</span><span class="p">:</span> <span class="n">FastaSequence</span><span class="p">,</span>
+    <span class="n">min_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">header</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">cols</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span>
+    <span class="n">output_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns the products amplified by a pair of primers against a single sequence.</span>
+
+<span class="sd">    This function is meant to be used by find_pcr_product, but if you&#39;d like to use this separately,</span>
+<span class="sd">    you must supply FastaSequence objects. A FastaSequence is just a convenient object to couple a header</span>
+<span class="sd">    with a DNA string. For example,</span>
+<span class="sd">        &gt;&gt;&gt; forward_primer = FastaSequence(&quot;test_forward_primer&quot;, &quot;ACTG&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; reverse_primer = FastaSequence(&quot;test_reverse_primer&quot;, &quot;ATTA&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; target_sequence = FastaSequence(&quot;target_sequence&quot;, &quot;ATGCTGATGCATGCTA&quot;)</span>
+
+<span class="sd">    Inputs</span>
+<span class="sd">    ------</span>
+<span class="sd">    sequence: FastaSequence</span>
+<span class="sd">        The fasta sequence to test for amplification.</span>
+
+<span class="sd">    forward_primer: FastaSequence</span>
+<span class="sd">        The forward primer to use.</span>
+
+<span class="sd">    reverse_primer: FastaSequence</span>
+<span class="sd">        The forward primer to use. Note that you should supply this</span>
+
+<span class="sd">    min_product_length: None | int</span>
+<span class="sd">        If provided, only return those products whose length are greater than or equal to this number.</span>
+<span class="sd">        Defaults to None, which returns all products found.</span>
+
+<span class="sd">    max_product_length: None | int</span>
+<span class="sd">        If provided, only return those products whose length are less than or equal to this number.</span>
+<span class="sd">        Defaults to None, which returns all products found.</span>
+
+<span class="sd">    header: bool | str</span>
+<span class="sd">        Whether or not to print a header on the results. Defaults to True. False will not print out the header.</span>
+
+<span class="sd">    cols: str</span>
+<span class="sd">        Which columns to print out. Defaults to &quot;all,&quot; which prints out all the columns. A string can be supplied to</span>
+<span class="sd">        only output the strings of interest. For example, cols=&quot;fpri rpri pname&quot; will only output the names of the forward</span>
+<span class="sd">        primer, reverse primer, and the target sequence when a target is found.</span>
+<span class="sd">        Available options are:</span>
+<span class="sd">            fpri - the name of the forward primer</span>
+<span class="sd">            rpri - the name of the reverse primer</span>
+<span class="sd">            start - the start location of the product in the target sequence</span>
+<span class="sd">            end - the end location of the product in the target sequence</span>
+<span class="sd">            length - the length of the product</span>
+<span class="sd">            pname - the name of the sequence in which the target was found</span>
+<span class="sd">            pseq - the nucleotide sequnce of the amplified product</span>
+
+<span class="sd">    output_file: bool | str</span>
+<span class="sd">        The file to write the results out to. Defaults to False, which will not print anything out. Providing a string</span>
+<span class="sd">        will create that input file at that location. If set to True without providing a string, the output file</span>
+<span class="sd">        will be of the form &lt;DD-MM-YYYY_HH:MM:SS&gt;.txt</span>
+
+
+
+<span class="sd">    Outputs</span>
+<span class="sd">    -------</span>
+<span class="sd">    A tab-separated string containing all of the products amplified by the primers contained in the primer file.</span>
+<span class="sd">    The fields are:</span>
+<span class="sd">        1. Forward primer name</span>
+<span class="sd">        2. Reverse primer name</span>
+<span class="sd">        3. Start position of the product in the target sequence</span>
+<span class="sd">        4. End position of the product in the target sequence</span>
+<span class="sd">        5. Product length</span>
+<span class="sd">        6. The product</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">products</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Check cols string</span>
+    <span class="n">selected_column_indices</span> <span class="o">=</span> <span class="n">parse_selected_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">products</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_output_line</span><span class="p">(</span><span class="n">BASE_HEADER</span><span class="p">,</span> <span class="n">selected_column_indices</span><span class="p">))</span>
+
+    <span class="n">forward_matches</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="k">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">forward_primer</span><span class="o">.</span><span class="n">sequence</span><span class="p">,</span> <span class="n">sequence</span><span class="o">.</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">forward_match</span> <span class="ow">in</span> <span class="n">forward_matches</span><span class="p">:</span>
+        <span class="n">tempseq</span> <span class="o">=</span> <span class="n">sequence</span><span class="p">[</span><span class="n">forward_match</span><span class="p">:]</span>
+        <span class="n">reverse_matches</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="k">match</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span>
+                <span class="n">reverse_complement</span><span class="p">(</span><span class="n">reverse_primer</span><span class="o">.</span><span class="n">sequence</span><span class="p">),</span> <span class="n">tempseq</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">reverse_match</span> <span class="ow">in</span> <span class="n">reverse_matches</span><span class="p">:</span>
+            <span class="n">product</span> <span class="o">=</span> <span class="n">tempseq</span><span class="p">[:</span> <span class="n">reverse_match</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">reverse_primer</span><span class="p">)]</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">forward_match</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">forward_match</span> <span class="o">+</span> <span class="n">reverse_match</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">reverse_primer</span><span class="p">)</span>
+            <span class="p">)</span>  <span class="c1"># This is the end in the original sequence</span>
+            <span class="n">product_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+            <span class="c1"># if min_product_length is not None and product_length &lt; min_product_length:</span>
+            <span class="c1">#     continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">desired_product_size</span><span class="p">(</span>
+                <span class="n">product_length</span><span class="p">,</span> <span class="n">min_product_length</span><span class="p">,</span> <span class="n">max_product_length</span>
+            <span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="n">product_line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">forward_primer</span><span class="o">.</span><span class="n">header</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">reverse_primer</span><span class="o">.</span><span class="n">header</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">product_length</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">sequence</span><span class="o">.</span><span class="n">header</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">product</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">products</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_output_line</span><span class="p">(</span><span class="n">product_line</span><span class="p">,</span> <span class="n">selected_column_indices</span><span class="p">))</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">products</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fout</span><span class="p">:</span>
+            <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="ispcr.get_pcr_products" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_pcr_products</span><span class="p">(</span><span class="n">primer_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sequence_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">min_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">header</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cols</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">output_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns all the products amplified by a set of primers in all sequences in a fasta file.</p>
+<h4 id="ispcr.get_pcr_products--inputs">Inputs</h4>
+
+<details class="primer_file">
+  <summary>str</summary>
+  <p>The path to the fasta file containing the primers to be tested. Currently, this primer
+file is expected to only contain two sequences, with the forward sequence appearing first.
+For an example:
+    &gt;test_1.f
+    AGTCA
+    &gt;test_2.r
+    TTATGC</p>
+</details>
+<details class="sequence_file">
+  <summary>str</summary>
+  <p>The path to the fasta file containing the sequences to test the primers against.</p>
+</details>
+<details class="min_product_length">
+  <summary>None | int</summary>
+  <p>If provided, only return those products whose length are greater than or equal to this number.
+Defaults to None, which returns all products found.</p>
+</details>
+<details class="max_product_length">
+  <summary>None | int</summary>
+  <p>If provided, only return those products whose length are less than or equal to this number.
+Defaults to None, which returns all products found.</p>
+</details>
+<details class="header">
+  <summary>bool</summary>
+  <p>Whether or not to print a header on the results. Defaults to True. False will not print out the header.</p>
+</details>
+<details class="cols">
+  <summary>str</summary>
+  <p>Which columns to print out. Defaults to "all," which prints out all the columns. A string can be supplied to
+only output the strings of interest. For example, cols="fpri rpri pname" will only output the names of the forward
+primer, reverse primer, and the target sequence when a target is found.
+Available options are:
+    fpri - the name of the forward primer
+    rpri - the name of the reverse primer
+    start - the start location of the product in the target sequence
+    end - the end location of the product in the target sequence
+    length - the length of the product
+    pname - the name of the sequence in which the target was found
+    pseq - the nucleotide sequnce of the amplified product</p>
+</details>
+<details class="output_file">
+  <summary>bool | str</summary>
+  <p>The file to write the results out to. Defaults to False, which will not print anything out. Providing a string
+will create that input file at that location. If set to True without providing a string, the output file
+will be of the form <DD-MM-YYYY_HH:MM:SS>.txt</p>
+</details>      <h4 id="ispcr.get_pcr_products--outputs">Outputs</h4>
+<p>A tab-separated string containing all of the products amplified by the primers contained in the primer file.</p>
+
+<details class="the-fields-are">
+  <summary>The fields are</summary>
+  <ol>
+<li>Forward primer name</li>
+<li>Reverse primer name</li>
+<li>Start position of the product in the target sequence</li>
+<li>End position of the product in the target sequence</li>
+<li>Product length</li>
+<li>The product</li>
+</ol>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>ispcr/__init__.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_pcr_products</span><span class="p">(</span>
+    <span class="n">primer_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">sequence_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">min_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">header</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">cols</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span>
+    <span class="n">output_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns all the products amplified by a set of primers in all sequences in a fasta file.</span>
+
+<span class="sd">    Inputs</span>
+<span class="sd">    ------</span>
+<span class="sd">    primer_file: str</span>
+<span class="sd">        The path to the fasta file containing the primers to be tested. Currently, this primer</span>
+<span class="sd">        file is expected to only contain two sequences, with the forward sequence appearing first.</span>
+<span class="sd">        For an example:</span>
+<span class="sd">            &gt;test_1.f</span>
+<span class="sd">            AGTCA</span>
+<span class="sd">            &gt;test_2.r</span>
+<span class="sd">            TTATGC</span>
+
+<span class="sd">    sequence_file: str</span>
+<span class="sd">        The path to the fasta file containing the sequences to test the primers against.</span>
+
+<span class="sd">    min_product_length: None | int</span>
+<span class="sd">        If provided, only return those products whose length are greater than or equal to this number.</span>
+<span class="sd">        Defaults to None, which returns all products found.</span>
+
+<span class="sd">    max_product_length: None | int</span>
+<span class="sd">        If provided, only return those products whose length are less than or equal to this number.</span>
+<span class="sd">        Defaults to None, which returns all products found.</span>
+
+<span class="sd">    header: bool</span>
+<span class="sd">        Whether or not to print a header on the results. Defaults to True. False will not print out the header.</span>
+
+<span class="sd">    cols: str</span>
+<span class="sd">        Which columns to print out. Defaults to &quot;all,&quot; which prints out all the columns. A string can be supplied to</span>
+<span class="sd">        only output the strings of interest. For example, cols=&quot;fpri rpri pname&quot; will only output the names of the forward</span>
+<span class="sd">        primer, reverse primer, and the target sequence when a target is found.</span>
+<span class="sd">        Available options are:</span>
+<span class="sd">            fpri - the name of the forward primer</span>
+<span class="sd">            rpri - the name of the reverse primer</span>
+<span class="sd">            start - the start location of the product in the target sequence</span>
+<span class="sd">            end - the end location of the product in the target sequence</span>
+<span class="sd">            length - the length of the product</span>
+<span class="sd">            pname - the name of the sequence in which the target was found</span>
+<span class="sd">            pseq - the nucleotide sequnce of the amplified product</span>
+
+<span class="sd">    output_file: bool | str</span>
+<span class="sd">        The file to write the results out to. Defaults to False, which will not print anything out. Providing a string</span>
+<span class="sd">        will create that input file at that location. If set to True without providing a string, the output file</span>
+<span class="sd">        will be of the form &lt;DD-MM-YYYY_HH:MM:SS&gt;.txt</span>
+
+
+<span class="sd">    Outputs</span>
+<span class="sd">    -------</span>
+<span class="sd">    A tab-separated string containing all of the products amplified by the primers contained in the primer file.</span>
+<span class="sd">    The fields are:</span>
+<span class="sd">        1. Forward primer name</span>
+<span class="sd">        2. Reverse primer name</span>
+<span class="sd">        3. Start position of the product in the target sequence</span>
+<span class="sd">        4. End position of the product in the target sequence</span>
+<span class="sd">        5. Product length</span>
+<span class="sd">        6. The product</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">products</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># If anything gets passed for the header, it gets handled here instead of in</span>
+    <span class="c1"># calculate_pcr_product.</span>
+
+    <span class="n">selected_column_indices</span> <span class="o">=</span> <span class="n">parse_selected_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">products</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filter_output_line</span><span class="p">(</span><span class="n">BASE_HEADER</span><span class="p">,</span> <span class="n">selected_column_indices</span><span class="p">))</span>
+
+    <span class="n">primers</span> <span class="o">=</span> <span class="n">read_sequences_from_file</span><span class="p">(</span><span class="n">primer_file</span><span class="p">)</span>
+    <span class="n">forward_primer</span><span class="p">,</span> <span class="n">reverse_primer</span> <span class="o">=</span> <span class="n">primers</span>
+
+    <span class="n">sequences</span> <span class="o">=</span> <span class="n">read_sequences_from_file</span><span class="p">(</span><span class="n">sequence_file</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">sequence</span> <span class="ow">in</span> <span class="n">sequences</span><span class="p">:</span>
+        <span class="n">new_products</span> <span class="o">=</span> <span class="n">calculate_pcr_product</span><span class="p">(</span>
+            <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span>
+            <span class="n">forward_primer</span><span class="o">=</span><span class="n">forward_primer</span><span class="p">,</span>
+            <span class="n">reverse_primer</span><span class="o">=</span><span class="n">reverse_primer</span><span class="p">,</span>
+            <span class="n">min_product_length</span><span class="o">=</span><span class="n">min_product_length</span><span class="p">,</span>
+            <span class="n">max_product_length</span><span class="o">=</span><span class="n">max_product_length</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">cols</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_products</span><span class="p">:</span>
+            <span class="n">products</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_products</span><span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">products</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fout</span><span class="p">:</span>
+            <span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="ispcr.FastaSequence" class="doc doc-heading">
+          <code>FastaSequence</code>
+
+
+</h2>
+
+  <div class="doc doc-contents ">
+  
+      <p>Generic fasta sequence class.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="ispcr.utils" class="doc doc-heading">
+          <code>utils</code>
+
+
+</h2>
+
+  <div class="doc doc-contents ">
+  
+      <p>This module contains various utilities used during in silico PCR.</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ispcr.utils.desired_product_size" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">desired_product_size</span><span class="p">(</span><span class="n">potential_product_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">min_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Determines if a potential product's size is in the user's desired product range.</p>
+<p>Inputs
+potential_product_length - int
+    The length of the potential product</p>
+
+<details class="min_product_length">
+  <summary>int | None</summary>
+  <p>The minimum product size the user will accept. If None, there is no lower limit.</p>
+</details>
+<details class="max_product_length">
+  <summary>int | None</summary>
+  <p>The maximum product size the user will accept. If None, there is no lower limit.</p>
+</details>      <p>Outputs
+A boolean for whether the product length is between the min and max product length.</p>
+<p>Example
+desired_product_size(100, 75, 125)
+True
+desired_product_size(200, 75, 125)
+False</p>
+
+      <details class="quote">
+        <summary>Source code in <code>ispcr/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">desired_product_size</span><span class="p">(</span>
+    <span class="n">potential_product_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">min_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">max_product_length</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Determines if a potential product&#39;s size is in the user&#39;s desired product range.</span>
+
+<span class="sd">    Inputs</span>
+<span class="sd">    potential_product_length - int</span>
+<span class="sd">        The length of the potential product</span>
+<span class="sd">    min_product_length: int | None</span>
+<span class="sd">        The minimum product size the user will accept. If None, there is no lower limit.</span>
+<span class="sd">    max_product_length: int | None</span>
+<span class="sd">        The maximum product size the user will accept. If None, there is no lower limit.</span>
+
+<span class="sd">    Outputs</span>
+<span class="sd">    A boolean for whether the product length is between the min and max product length.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    desired_product_size(100, 75, 125)</span>
+<span class="sd">    True</span>
+<span class="sd">    desired_product_size(200, 75, 125)</span>
+<span class="sd">    False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">min_product_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">max_product_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">potential_product_length</span> <span class="o">&lt;=</span> <span class="n">max_product_length</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">max_product_length</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">min_product_length</span> <span class="o">&lt;=</span> <span class="n">potential_product_length</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">max_product_length</span> <span class="o">&lt;</span> <span class="n">min_product_length</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;min_product_length cannot be larger than max_product_length&quot;</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">min_product_length</span> <span class="o">&lt;=</span> <span class="n">potential_product_length</span> <span class="o">&lt;=</span> <span class="n">max_product_length</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ispcr.utils.filter_output_line" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">filter_output_line</span><span class="p">(</span><span class="n">output_line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">column_indices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Filters a single line of isPCR results based on selected column indices.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>ispcr/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">filter_output_line</span><span class="p">(</span><span class="n">output_line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">column_indices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filters a single line of isPCR results based on selected column indices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">output_line</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">elif</span> <span class="n">column_indices</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="n">output_line</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">output_line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">column_indices</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ispcr.utils.get_column_indices" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_column_indices</span><span class="p">(</span><span class="n">header_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns column indices based on a column header string.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>ispcr/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_column_indices</span><span class="p">(</span><span class="n">header_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns column indices based on a column header string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">COLUMN_HEADERS</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">header_string</span><span class="o">.</span><span class="n">split</span><span class="p">()]</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ispcr.utils.is_valid_cols_string" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">is_valid_cols_string</span><span class="p">(</span><span class="n">header_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Internal helper to check if a column header string is valid.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>ispcr/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_valid_cols_string</span><span class="p">(</span><span class="n">header_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Internal helper to check if a column header string is valid.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">header_string</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">col_name</span> <span class="ow">in</span> <span class="n">header_string</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">col_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">COLUMN_HEADERS</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ispcr.utils.parse_selected_cols" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">parse_selected_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a list of int indices based on a column header string.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>ispcr/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">parse_selected_cols</span><span class="p">(</span><span class="n">cols</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of int indices based on a column header string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">cols</span> <span class="o">!=</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_valid_cols_string</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">InvalidColumnSelectionError</span><span class="p">(</span><span class="s2">&quot;Invalid header string.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">selected_column_indices</span> <span class="o">=</span> <span class="n">get_column_indices</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">selected_column_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">BASE_HEADER</span><span class="o">.</span><span class="n">split</span><span class="p">())))</span>
+    <span class="k">return</span> <span class="n">selected_column_indices</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ispcr.utils.read_fasta" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">read_fasta</span><span class="p">(</span><span class="n">fasta_file</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">FastaSequence</span><span class="p">]</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>An iterator for fasta files.</p>
+<pre><code>Inputs
+------
+fasta_file: TextIO
+    An open file for reading
+
+Outputs
+-------
+An iterator yielding the the sequence names and sequences from a fasta file
+
+Example
+-------
+input_file = 'tests/test_data/sequences/met_r.fa.fasta'
+with open(input_file) as fin:
+for name, seq in read_fasta(fin):
+    print(f'{name}
+</code></pre>
+<p>{seq}')</p>
+
+      <details class="quote">
+        <summary>Source code in <code>ispcr/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">read_fasta</span><span class="p">(</span><span class="n">fasta_file</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">FastaSequence</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;An iterator for fasta files.</span>
+
+<span class="sd">    Inputs</span>
+<span class="sd">    ------</span>
+<span class="sd">    fasta_file: TextIO</span>
+<span class="sd">        An open file for reading</span>
+
+<span class="sd">    Outputs</span>
+<span class="sd">    -------</span>
+<span class="sd">    An iterator yielding the the sequence names and sequences from a fasta file</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    input_file = &#39;tests/test_data/sequences/met_r.fa.fasta&#39;</span>
+<span class="sd">    with open(input_file) as fin:</span>
+<span class="sd">    for name, seq in read_fasta(fin):</span>
+<span class="sd">        print(f&#39;{name}\n{seq}&#39;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">seq</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fasta_file</span><span class="p">:</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">header</span> <span class="o">=</span> <span class="n">name</span>
+                <span class="n">sequence</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+                <span class="k">yield</span> <span class="n">FastaSequence</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)</span>
+            <span class="n">name</span><span class="p">,</span> <span class="n">seq</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">seq</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">sequence</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">FastaSequence</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ispcr.utils.read_sequences_from_file" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">read_sequences_from_file</span><span class="p">(</span><span class="n">primer_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">FastaSequence</span><span class="p">]</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Reads a fasta file, converts the sequences to FastaSequences, and returns them in a list.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>ispcr/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">read_sequences_from_file</span><span class="p">(</span><span class="n">primer_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">FastaSequence</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reads a fasta file, converts the sequences to FastaSequences, and returns them in a list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sequences</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">primer_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fin</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">fasta_sequence</span> <span class="ow">in</span> <span class="n">read_fasta</span><span class="p">(</span><span class="n">fin</span><span class="p">):</span>
+            <span class="n">sequences</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fasta_sequence</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sequences</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="ispcr.utils.reverse_complement" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">reverse_complement</span><span class="p">(</span><span class="n">dna_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns the reverse complement of a DNA string.</p>
+<h5 id="ispcr.utils.reverse_complement--inputs">Inputs</h5>
+
+<details class="dna_string">
+  <summary>str</summary>
+  <p>A string representing a DNA sequence. Supported bases are A, C, G, and T.</p>
+</details>      <h5 id="ispcr.utils.reverse_complement--outputs">Outputs</h5>
+<p>The reverse complement of dna_string.</p>
+<h5 id="ispcr.utils.reverse_complement--raises">Raises</h5>
+<p>KeyError
+    Raised if there is a base in dna_string that is not one of ACGT.</p>
+<h5 id="ispcr.utils.reverse_complement--example">Example</h5>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>reverse_complement('GCTGA')
+'TCAGC'</p>
+</blockquote>
+</blockquote>
+</blockquote>
+
+      <details class="quote">
+        <summary>Source code in <code>ispcr/utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reverse_complement</span><span class="p">(</span><span class="n">dna_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Returns the reverse complement of a DNA string.</span>
+
+<span class="sd">    Inputs</span>
+<span class="sd">    ------</span>
+<span class="sd">    dna_string: str</span>
+<span class="sd">        A string representing a DNA sequence. Supported bases are A, C, G, and T.</span>
+
+<span class="sd">    Outputs</span>
+<span class="sd">    -------</span>
+<span class="sd">    The reverse complement of dna_string.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    KeyError</span>
+<span class="sd">        Raised if there is a base in dna_string that is not one of ACGT.</span>
+
+<span class="sd">    Example</span>
+<span class="sd">    -------</span>
+<span class="sd">    &gt;&gt;&gt; reverse_complement(&#39;GCTGA&#39;)</span>
+<span class="sd">    &#39;TCAGC&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">complements</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;T&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rev_seq</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">complements</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">dna_string</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Base </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="si">}</span><span class="s2"> not supported.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span>
+    <span class="k">return</span> <span class="n">rev_seq</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Introduction
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../changelog/" class="md-footer__link md-footer__link--next" aria-label="Next: Changelog" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Changelog
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.078830c0.min.js"></script>
+      
+    
+  </body>
+</html>
