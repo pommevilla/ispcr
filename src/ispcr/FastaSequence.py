@@ -27,3 +27,10 @@ class FastaSequence:
 
     def __getitem__(self, i: Union[int, slice]) -> str:
         return self.sequence[i]
+
+    def get_gc_content(self) -> float:
+        gc_count = 0
+        for base in self.sequence:
+            if base.lower() in ["g", "c"]:
+                gc_count += 1
+        return gc_count / len(self.sequence)

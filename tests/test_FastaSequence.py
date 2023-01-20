@@ -56,3 +56,9 @@ class TestFastaSequence:
         actual_repr = repr(test_sequence_2)
 
         assert expected_repr == actual_repr
+
+    def test_simple_gc_content(self) -> None:
+        test_fasta_sequence = FastaSequence("inner_sequence", "GCAA")
+        expected_gc_content = 0.5
+        actual_gc_content = test_fasta_sequence.get_gc_content()
+        assert expected_gc_content == actual_gc_content
