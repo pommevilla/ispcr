@@ -288,3 +288,15 @@ class TestGetInvalidBases:
         expected: dict[str, list[int]] = {}
         actual = get_invalid_bases(test_string)
         assert expected == actual
+
+    def test_multiple_single_invalid_bases(self) -> None:
+        test_string = "TZACFGH"
+        expected = {"Z": [1], "F": [4], "H": [6]}
+        actual = get_invalid_bases(test_string)
+        assert expected == actual
+
+    def test_multiple_times(self) -> None:
+        test_string = "TZACFGH"
+        expected = {"Z": [1], "F": [4], "H": [6]}
+        actual = get_invalid_bases(test_string)
+        assert expected == actual

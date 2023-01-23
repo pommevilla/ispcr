@@ -1,14 +1,32 @@
 """
 Generic fasta sequence class.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Iterator, Union
+
+VALID_BASES = set("ACGT")
 
 
 @dataclass(frozen=True)
 class FastaSequence:
     header: str
     sequence: str
+    base_counts: dict[str, int] = field(init=False)
+    gc_content: float = field(init=False)
+    melting_temp: Union[float, int] = field(init=False)
+
+    def __post_init__(self) -> None:
+        from collections import Counter
+
+        base_counts = Counter(self.sequence)
+        object.__setattr__(self, "base_counts", base_counts)
+
+        gc_count = self.base_counts["G"] + self.base_counts["C"]
+        gc_content = gc_count / len(self.sequence)
+        object.__setattr__(self, "gc_content", gc_content)
+
+        melting_temp = self._get_melting_temp()
+        object.__setattr__(self, "melting_temp", melting_temp)
 
     def __len__(self) -> int:
         return len(self.sequence)
@@ -28,9 +46,19 @@ class FastaSequence:
     def __getitem__(self, i: Union[int, slice]) -> str:
         return self.sequence[i]
 
-    def get_gc_content(self) -> float:
-        gc_count = 0
-        for base in self.sequence:
-            if base.lower() in ["g", "c"]:
-                gc_count += 1
-        return gc_count / len(self.sequence)
+    def _get_melting_temp(self) -> Union[float, int]:
+
+        melting_temp: Union[float, int]
+
+        if len(self.sequence) < 14:
+            melting_temp = 2 * (self.base_counts["A"] + self.base_counts["T"]) + 4 * (
+                self.base_counts["G"] + self.base_counts["C"]
+            )
+        else:
+            melting_temp = 64.9 + 41 * (
+                self.base_counts["G"] + self.base_counts["C"] - 16.4
+            ) / len(self.sequence)
+
+        melting_temp = round(melting_temp, 1)
+
+        return melting_temp
