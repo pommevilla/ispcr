@@ -8,6 +8,7 @@ from ispcr.utils import (
     desired_product_size,
     filter_output_line,
     get_column_indices,
+    get_invalid_bases,
     is_valid_cols_string,
     parse_selected_cols,
     read_fasta,
@@ -272,4 +273,18 @@ class TestParseSelectedCols:
         expected = list(range(len(base_header.split())))
         actual = parse_selected_cols(base_header)
 
+        assert expected == actual
+
+
+class TestGetInvalidBases:
+    def test_simple_invalid_base_count(self) -> None:
+        test_string = "ACGTV"
+        expected = {"V": [4]}
+        actual = get_invalid_bases(test_string)
+        assert expected == actual
+
+    def test_no_invalid_bases_found(self) -> None:
+        test_string = "ACGT"
+        expected: dict[str, list[int]] = {}
+        actual = get_invalid_bases(test_string)
         assert expected == actual
