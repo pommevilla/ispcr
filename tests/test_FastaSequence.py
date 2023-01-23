@@ -46,7 +46,7 @@ class TestFastaSequence:
         assert expected_slice == actual_slice
 
     def test_str(self, test_sequence_1: FastaSequence) -> None:
-        expected_str = ">test1\nATTGAC"
+        expected_str = ">test1\nATTGAC\n"
         actual_str = str(test_sequence_1)
 
         assert expected_str == actual_str

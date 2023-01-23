@@ -17,7 +17,7 @@ class FastaSequence:
         yield from self.sequence
 
     def __str__(self) -> str:
-        return f">{self.header}\n{self.sequence}"
+        return f">{self.header}\n{self.sequence}\n"
 
     def __repr__(self) -> str:
         return f"FastaSeq(header={self.header[:5]}..., seq={self.sequence[:5]}...)"
