@@ -195,7 +195,7 @@ def parse_selected_cols(cols: str) -> List[int]:
     return selected_column_indices
 
 
-def get_invalid_bases(seq: str) -> Dict[str, list[int]]:
+def get_invalid_bases(seq: str) -> Dict[str, List[int]]:
     from collections import defaultdict
 
     invalid_bases = defaultdict(lambda: [])
