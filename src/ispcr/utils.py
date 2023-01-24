@@ -2,9 +2,14 @@
 This module contains various utilities used during in silico PCR.
 """
 
-from typing import Iterator, List, TextIO, Union
+from typing import Dict, Iterator, List, TextIO, Union
 
+from ispcr.errors import InvalidColumnSelectionError
 from ispcr.FastaSequence import FastaSequence
+
+BASE_HEADER = (
+    "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_name\tproduct_sequence"
+)
 
 COLUMN_HEADERS = {
     "fpri": 0,
@@ -15,10 +20,7 @@ COLUMN_HEADERS = {
     "pname": 5,
     "pseq": 6,
 }
-
-BASE_HEADER = (
-    "forward_primer\treverse_primer\tstart\tend\tlength\tproduct_name\tproduct_sequence"
-)
+VALID_BASES = set("ACGT")
 
 
 def desired_product_size(
@@ -193,5 +195,11 @@ def parse_selected_cols(cols: str) -> List[int]:
     return selected_column_indices
 
 
-class InvalidColumnSelectionError(Exception):
-    pass
+def get_invalid_bases(seq: str) -> Dict[str, List[int]]:
+    from collections import defaultdict
+
+    invalid_bases = defaultdict(lambda: [])
+    for i, base in enumerate(seq):
+        if base not in VALID_BASES:
+            invalid_bases[base].append(i)
+    return invalid_bases
