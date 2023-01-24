@@ -2,7 +2,7 @@
 Generic fasta sequence class.
 """
 from dataclasses import dataclass, field
-from typing import Iterator, Union
+from typing import Dict, Iterator, Union
 
 VALID_BASES = set("ACGT")
 
@@ -11,7 +11,7 @@ VALID_BASES = set("ACGT")
 class FastaSequence:
     header: str
     sequence: str
-    base_counts: dict[str, int] = field(init=False)
+    base_counts: Dict[str, int] = field(init=False)
     gc_content: float = field(init=False)
     melting_temp: Union[float, int] = field(init=False)
 

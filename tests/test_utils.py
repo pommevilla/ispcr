@@ -1,4 +1,4 @@
-from typing import Iterator, List
+from typing import Dict, Iterator, List
 
 import pytest
 
@@ -285,7 +285,7 @@ class TestGetInvalidBases:
 
     def test_no_invalid_bases_found(self) -> None:
         test_string = "ACGT"
-        expected: dict[str, list[int]] = {}
+        expected: Dict[str, List[int]] = {}
         actual = get_invalid_bases(test_string)
         assert expected == actual
 
