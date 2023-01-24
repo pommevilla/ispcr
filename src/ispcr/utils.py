@@ -2,7 +2,7 @@
 This module contains various utilities used during in silico PCR.
 """
 
-from typing import Iterator, List, TextIO, Union
+from typing import Dict, Iterator, List, TextIO, Union
 
 from ispcr.errors import InvalidColumnSelectionError
 from ispcr.FastaSequence import FastaSequence
@@ -195,7 +195,7 @@ def parse_selected_cols(cols: str) -> List[int]:
     return selected_column_indices
 
 
-def get_invalid_bases(seq: str) -> dict[str, list[int]]:
+def get_invalid_bases(seq: str) -> Dict[str, list[int]]:
     from collections import defaultdict
 
     invalid_bases = defaultdict(lambda: [])
